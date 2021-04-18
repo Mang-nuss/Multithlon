@@ -1,5 +1,6 @@
 package gui;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public class MultithlonGUI {
@@ -10,53 +11,107 @@ public class MultithlonGUI {
      * event-dispatching thread.
      */
 
-    public static JPanel panel;
+    public static JPanel inputPanel;
+    public static JPanel resultPanel;
     public static JFrame frame;
     public static JLabel label;
-    public static JButton regLongJump;
-    public static JButton regHighJump;
-    public static JTextArea longJumpArea;
-    public static JTextArea highJumpArea;
+    public static JButton calculateButton;
+    public static JTextField resultField;
+    public static JTextArea pointsArea;
     public static JComboBox eventCombo;
+    public static String[] decathlonEvents =
+            {"Long jump",
+            "High jump",
+            "Shot put",
+            "110 hurdles",
+            "Javelin throw",
+            "400 m",
+            "1500 m",
+            "100 m",
+            "Pole vault",
+            "Discus throw"};
+    public static String[] heptathlonEvents =
+            {"Long jump",
+            "High jump",
+            "Shot put",
+            "100 hurdles",
+            "Javelin throw",
+            "800 m",
+            "200 m"};
 
-    public static void createAndShowGUI() {
+    public static void createAndShowGUI(String contest) {
+
         //Create and set up the window.
-        panel = new JPanel();
+        inputPanel = new JPanel(new BorderLayout());
+        //resultPanel = new JPanel();
         frame = new JFrame("MultithlonSwing");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        GridLayout grid = new GridLayout(0,4);
 
         label = new JLabel("Multithlon Handler");
         //frame.getContentPane().add(label);
-
-        regLongJump = new JButton();
-        regLongJump.setText("Long Jump");
 
         eventCombo = new JComboBox();
         eventCombo.addItem("Decathlon");
         eventCombo.addItem("Heptathlon");
         //frame.getContentPane().add(eventCombo);
 
-        panel.add(label);
-        panel.add(eventCombo);
-        panel.add(regLongJump);
+        inputPanel.setLayout(grid);
+        inputPanel.setBackground(Color.darkGray);
 
-        frame.add(panel);
+        frame.add(inputPanel);
+
+/*        pointsArea = new JTextArea("The result");
+        resultPanel.add(pointsArea);
+        resultPanel.setBackground(Color.darkGray);
+
+        frame.add(resultPanel);*/
+
+        switch (contest) {
+            case "Decathlon":
+                initComponents(decathlonEvents);
+                break;
+            case "Heptathlon":
+                initComponents(heptathlonEvents);
+                break;
+        }
 
         //Display the window.
         frame.setSize(500,300);
         frame.pack();
         frame.setVisible(true);
-
-        regLongJump.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(MouseEvent event) {
-                //System.out.println("event!");
-                btnClicked(event);
-            }
-        });
     }
 
-    public static void btnClicked(MouseEvent event) {
-        System.out.println("event!");
+    public static void btnClicked(String s, int result, MouseEvent event) {
+        int points = calculatePoints(s, result);
+        System.out.println("event: " + s + ", result: " + points);
+        System.out.println(event.toString());
+    }
+
+    public static int calculatePoints(String event, int result) {
+
+        return result;
+    }
+
+    public static void initComponents(String[] events) {
+
+        for(String s : events) {
+            inputPanel.add(new JButton(s));
+            resultField = new JTextField();
+            inputPanel.add(resultField);
+            calculateButton = new JButton("Calculate");
+            calculateButton.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(MouseEvent event) {
+                    //System.out.println("event!");
+                    String result = resultField.getText();
+                    System.out.println(result);
+                    btnClicked(s, 100, event);
+                }
+            });
+            inputPanel.add(calculateButton);
+            pointsArea = new JTextArea("");
+            inputPanel.add(pointsArea);
+        }
     }
 
     public static void main(String[] args) {
@@ -64,7 +119,7 @@ public class MultithlonGUI {
         //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                createAndShowGUI();
+                createAndShowGUI("Heptathlon");
             }
         });
     }
