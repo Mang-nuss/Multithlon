@@ -1,6 +1,8 @@
 package gui;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 public class MultithlonGUI {
@@ -11,6 +13,7 @@ public class MultithlonGUI {
      * event-dispatching thread.
      */
 
+    public static String result;
     public static JPanel inputPanel;
     public static JPanel resultPanel;
     public static JFrame frame;
@@ -82,8 +85,10 @@ public class MultithlonGUI {
         frame.setVisible(true);
     }
 
-    public static void btnClicked(String s, int result, MouseEvent event) {
-        int points = calculatePoints(s, result);
+    public static void btnClicked(String s, JTextField field, MouseEvent event) {
+        String result = field.getText();
+        System.out.println("result: " + result);
+        int points = calculatePoints(s, 100);
         System.out.println("event: " + s + ", result: " + points);
         System.out.println(event.toString());
     }
@@ -98,14 +103,17 @@ public class MultithlonGUI {
         for(String s : events) {
             inputPanel.add(new JButton(s));
             resultField = new JTextField();
+/*            resultField.addActionListener(new java.awt.event.KeyAdapter() {
+                public void textInput() {
+                    result = resultField.getText();
+                }
+            });*/
             inputPanel.add(resultField);
             calculateButton = new JButton("Calculate");
             calculateButton.addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mouseClicked(MouseEvent event) {
                     //System.out.println("event!");
-                    String result = resultField.getText();
-                    System.out.println(result);
-                    btnClicked(s, 100, event);
+                    btnClicked(s, resultField, event);
                 }
             });
             inputPanel.add(calculateButton);
@@ -113,6 +121,8 @@ public class MultithlonGUI {
             inputPanel.add(pointsArea);
         }
     }
+
+    public static ActionListener textListener;
 
     public static void main(String[] args) {
         //Schedule a job for the event-dispatching thread:
