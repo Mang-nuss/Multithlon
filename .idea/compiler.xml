@@ -9,5 +9,8 @@
         <module name="Multithlon" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Multithlon" target="14" />
+    </bytecodeTargetLevel>
   </component>
 </project>
