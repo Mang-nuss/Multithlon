@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Multithlon.iml" filepath="$PROJECT_DIR$/.idea/Multithlon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Multithlon.iml" filepath="$PROJECT_DIR$/Multithlon.iml" />
     </modules>
   </component>
 </project>
