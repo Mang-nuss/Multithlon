@@ -98,6 +98,11 @@ public class MultithlonGUI {
         return result;
     }
 
+    public static int calculatePoints2(String event, int result) {
+
+        return result;
+    }
+
     public static void initComponents(String[] events) {
 
         for(String s : events) {
