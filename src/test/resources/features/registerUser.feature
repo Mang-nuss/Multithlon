@@ -2,7 +2,7 @@ Feature: Registration of a new participant
   I test the registration of a participant with both valid and invalid input
 
 @newUserRegistration
-<<<<<<< HEAD
+
     Scenario Outline:
     Given I have chosen an <event>
     When  I write a username as <username>
@@ -20,7 +20,7 @@ Feature: Registration of a new participant
         | "noUsername        | "decathlon"  |  "please enter a username"                                          |
         | "invalid username" | "decathlon"  |  "You wrote and invalid form of a user name"                        |
         | "invalid username" | "heptathlon" |   "You wrote and invalid form of a user name"                       |
-=======
+
     Scenario Outline: Registration
 
     When I write a username as "<username>"
@@ -34,7 +34,7 @@ Feature: Registration of a new participant
         | invalid username | heptathlon |  You wrote and invalid form of a user name                        |
         | usernameTaken    | decathlon  |  Username is already taken. Note that you can only register once. |
         | noUsername        | heptathlon |  please enter a username                                         |
->>>>>>> 575da0c7a7b11f0521c2823f7d82b2ab24243fc7
+
 
   @maximumUsersReached
   Scenario: I test the maximum number of registration
