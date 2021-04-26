@@ -1,4 +1,4 @@
-package testRunner;
+/*package testRunner;
 
 import org.junit.runner.RunWith;
 import io.cucumber.junit.CucumberOptions;
@@ -8,4 +8,4 @@ import io.cucumber.junit.Cucumber;
 @CucumberOptions(features="src/test/resources/Features", glue="stepDefinitions")
 
 public class TestRunner {
-}
+}*/
