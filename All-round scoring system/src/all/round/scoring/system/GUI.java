@@ -5,24 +5,25 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.GroupLayout;
-import java.awt.Color;
 
 public class GUI extends javax.swing.JFrame {
-
+    
+    String competition = null;
+    ArrayList<String> arrayList = new ArrayList<>();
+    
     public GUI() {
         initComponents();
         this.setLocationRelativeTo(null);
         header.requestFocus();
-
+        
         loadParticipant();
+        checkResultTable();
     }
 
     /**
@@ -40,7 +41,6 @@ public class GUI extends javax.swing.JFrame {
         lblCreatePartcipant = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
-        txtName.setBackground(new Color(255, 255, 255));
         btnCreateParticipant = new javax.swing.JButton();
         cbChooseParticipant = new javax.swing.JComboBox<>();
         lblCompetition = new javax.swing.JLabel();
@@ -58,20 +58,20 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        header.setFont(new java.awt.Font("Snap ITC", 1, 30)); 
+        header.setFont(new java.awt.Font("Snap ITC", 1, 30)); // NOI18N
         header.setText("All-Round Scoring System");
 
-        lblParticipant.setFont(new java.awt.Font("Serif", 1, 20)); 
+        lblParticipant.setFont(new java.awt.Font("Serif", 1, 20)); // NOI18N
         lblParticipant.setText("Participant:");
 
-        lblCreatePartcipant.setFont(new java.awt.Font("Serif", 1, 20)); 
+        lblCreatePartcipant.setFont(new java.awt.Font("Serif", 1, 20)); // NOI18N
         lblCreatePartcipant.setText("Create Participant");
 
-        lblName.setFont(new java.awt.Font("Serif", 1, 20)); 
+        lblName.setFont(new java.awt.Font("Serif", 1, 20)); // NOI18N
         lblName.setText("Name:");
 
         btnCreateParticipant.setBackground(new java.awt.Color(0, 143, 255));
-        btnCreateParticipant.setFont(new java.awt.Font("Serif", 1, 20)); 
+        btnCreateParticipant.setFont(new java.awt.Font("Serif", 1, 20)); // NOI18N
         btnCreateParticipant.setForeground(new java.awt.Color(255, 255, 255));
         btnCreateParticipant.setText("Create");
         btnCreateParticipant.addActionListener(new java.awt.event.ActionListener() {
@@ -80,13 +80,18 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        cbChooseParticipant.setFont(new java.awt.Font("Serif", 0, 20)); 
+        cbChooseParticipant.setFont(new java.awt.Font("Serif", 0, 20)); // NOI18N
         cbChooseParticipant.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "   Choose Partcipant..." }));
+        cbChooseParticipant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbChooseParticipantActionPerformed(evt);
+            }
+        });
 
-        lblCompetition.setFont(new java.awt.Font("Serif", 1, 20)); 
+        lblCompetition.setFont(new java.awt.Font("Serif", 1, 20)); // NOI18N
         lblCompetition.setText("Competition:");
 
-        cbChooseCompetition.setFont(new java.awt.Font("Serif", 0, 20)); 
+        cbChooseCompetition.setFont(new java.awt.Font("Serif", 0, 20)); // NOI18N
         cbChooseCompetition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "   Choose Competition..." }));
         cbChooseCompetition.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,17 +99,17 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        lblEvent.setFont(new java.awt.Font("Serif", 1, 20)); 
+        lblEvent.setFont(new java.awt.Font("Serif", 1, 20)); // NOI18N
         lblEvent.setText("Event:");
 
-        cbChooseEvent.setFont(new java.awt.Font("Serif", 0, 20)); 
+        cbChooseEvent.setFont(new java.awt.Font("Serif", 0, 20)); // NOI18N
         cbChooseEvent.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "   Choose Event..." }));
 
-        lblValue.setFont(new java.awt.Font("Serif", 1, 20)); 
+        lblValue.setFont(new java.awt.Font("Serif", 1, 20)); // NOI18N
         lblValue.setText("Value:");
 
         btnCalculatePoints.setBackground(new java.awt.Color(0, 143, 255));
-        btnCalculatePoints.setFont(new java.awt.Font("Serif", 1, 20)); 
+        btnCalculatePoints.setFont(new java.awt.Font("Serif", 1, 20)); // NOI18N
         btnCalculatePoints.setForeground(new java.awt.Color(255, 255, 255));
         btnCalculatePoints.setText("Calculate Points");
         btnCalculatePoints.addActionListener(new java.awt.event.ActionListener() {
@@ -114,7 +119,7 @@ public class GUI extends javax.swing.JFrame {
         });
 
         btnCurentScore.setBackground(new java.awt.Color(0, 143, 255));
-        btnCurentScore.setFont(new java.awt.Font("Serif", 1, 20)); 
+        btnCurentScore.setFont(new java.awt.Font("Serif", 1, 20)); // NOI18N
         btnCurentScore.setForeground(new java.awt.Color(255, 255, 255));
         btnCurentScore.setText("Current Score");
         btnCurentScore.addActionListener(new java.awt.event.ActionListener() {
@@ -124,7 +129,7 @@ public class GUI extends javax.swing.JFrame {
         });
 
         btnExit.setBackground(new java.awt.Color(0, 143, 255));
-        btnExit.setFont(new java.awt.Font("Serif", 1, 20)); 
+        btnExit.setFont(new java.awt.Font("Serif", 1, 20)); // NOI18N
         btnExit.setForeground(new java.awt.Color(255, 255, 255));
         btnExit.setText("Exit");
         btnExit.addActionListener(new java.awt.event.ActionListener() {
@@ -134,97 +139,97 @@ public class GUI extends javax.swing.JFrame {
         });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-        	jPanel1Layout.createParallelGroup(Alignment.TRAILING)
-        		.addGroup(jPanel1Layout.createSequentialGroup()
-        			.addContainerGap(176, Short.MAX_VALUE)
-        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.TRAILING)
-        				.addGroup(jPanel1Layout.createSequentialGroup()
-        					.addComponent(header)
-        					.addGap(152))
-        				.addGroup(jPanel1Layout.createSequentialGroup()
-        					.addComponent(lblName)
-        					.addGap(18)
-        					.addComponent(txtName, GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE)
-        					.addGap(48))))
-        		.addGroup(jPanel1Layout.createSequentialGroup()
-        			.addGap(70)
-        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.TRAILING)
-        				.addComponent(lblValue)
-        				.addComponent(lblParticipant)
-        				.addComponent(lblCompetition)
-        				.addComponent(lblEvent))
-        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-        				.addGroup(jPanel1Layout.createSequentialGroup()
-        					.addGap(22)
-        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-        						.addGroup(jPanel1Layout.createSequentialGroup()
-        							.addComponent(cbChooseEvent, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        							.addGap(0, 330, Short.MAX_VALUE))
-        						.addGroup(jPanel1Layout.createSequentialGroup()
-        							.addComponent(cbChooseParticipant, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        							.addPreferredGap(ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-        							.addComponent(lblCreatePartcipant)
-        							.addGap(70))
-        						.addGroup(jPanel1Layout.createSequentialGroup()
-        							.addComponent(cbChooseCompetition, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        							.addPreferredGap(ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
-        							.addComponent(btnCreateParticipant)
-        							.addGap(77))))
-        				.addGroup(jPanel1Layout.createSequentialGroup()
-        					.addGap(18)
-        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-        						.addGroup(jPanel1Layout.createSequentialGroup()
-        							.addComponent(btnCalculatePoints)
-        							.addGap(30)
-        							.addComponent(btnCurentScore))
-        						.addComponent(txtValue, GroupLayout.PREFERRED_SIZE, 181, GroupLayout.PREFERRED_SIZE))
-        					.addContainerGap(150, Short.MAX_VALUE))))
-        		.addGroup(jPanel1Layout.createSequentialGroup()
-        			.addGap(359)
-        			.addComponent(btnExit)
-        			.addGap(0, 296, Short.MAX_VALUE))
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(160, Short.MAX_VALUE)
+                .addComponent(header)
+                .addGap(152, 152, 152))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(59, 59, 59)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnCurentScore, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnCalculatePoints)
+                                .addGap(218, 218, 218))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(179, 179, 179)
+                                .addComponent(btnExit)
+                                .addGap(141, 141, 141)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblParticipant)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblValue)
+                                .addComponent(lblEvent)))
+                        .addGap(43, 43, 43)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbChooseEvent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtValue, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblName)
+                                    .addComponent(lblCompetition))
+                                .addGap(28, 28, 28)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnCreateParticipant)
+                                    .addComponent(cbChooseCompetition, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(22, 22, 22))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(cbChooseParticipant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(89, 89, 89)
+                                .addComponent(lblCreatePartcipant)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         jPanel1Layout.setVerticalGroup(
-        	jPanel1Layout.createParallelGroup(Alignment.LEADING)
-        		.addGroup(jPanel1Layout.createSequentialGroup()
-        			.addGap(30)
-        			.addComponent(header)
-        			.addGap(54)
-        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(cbChooseParticipant, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(lblParticipant)
-        				.addComponent(lblCreatePartcipant))
-        			.addPreferredGap(ComponentPlacement.UNRELATED)
-        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(txtName, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(lblName))
-        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-        				.addGroup(jPanel1Layout.createSequentialGroup()
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
-        						.addComponent(cbChooseCompetition, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        						.addComponent(lblCompetition))
-        					.addGap(28)
-        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
-        						.addComponent(cbChooseEvent, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        						.addComponent(lblEvent))
-        					.addGap(41)
-        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
-        						.addComponent(lblValue)
-        						.addComponent(txtValue, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)))
-        				.addGroup(jPanel1Layout.createSequentialGroup()
-        					.addGap(28)
-        					.addComponent(btnCreateParticipant)))
-        			.addGap(48)
-        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(btnCalculatePoints)
-        				.addComponent(btnCurentScore))
-        			.addGap(18)
-        			.addComponent(btnExit)
-        			.addContainerGap(30, Short.MAX_VALUE))
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(header)
+                .addGap(54, 54, 54)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbChooseParticipant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblParticipant)
+                    .addComponent(lblCreatePartcipant))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblName)
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(75, 75, 75)
+                                .addComponent(btnCreateParticipant))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cbChooseCompetition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblCompetition)))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblEvent)
+                            .addComponent(cbChooseEvent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblValue)
+                            .addComponent(txtValue, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCalculatePoints)
+                    .addComponent(btnCurentScore))
+                .addGap(18, 18, 18)
+                .addComponent(btnExit)
+                .addContainerGap(136, Short.MAX_VALUE))
         );
-        jPanel1.setLayout(jPanel1Layout);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -245,96 +250,108 @@ public class GUI extends javax.swing.JFrame {
         String uniqueName = null;
         boolean flag = true;
         int count = 0;
+        int countComp = 0;
         if (txtName.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Name Required..", "Error Message ", ERROR_MESSAGE);
         } else {
-
-            File f = new File("Participants.txt");
-            try {
-                try (Scanner s = new Scanner(f)) {
-                    if (f.exists()) {
-                        while (s.hasNext()) {
-                            count++;
-                            uniqueName = s.nextLine().toLowerCase();
-                            if (uniqueName.equals(txtName.getText().toLowerCase().trim())) {
-                                flag = false;
-                                break;
-                            }
-                        }
-
-                    } else {
-                        System.out.println("File not Found..");
-
-                    }
-                }
-
-            } catch (FileNotFoundException ex) {
-                System.out.println("File not found");
-            }
-
-            if (count < 40) {
-                if(flag == true){
+            if (cbChooseCompetition.getSelectedIndex() > 0) {
+                
+                File f = new File("Participants.csv");
                 try {
-                    FileWriter fw = new FileWriter(f, true);
-                    BufferedWriter bw = new BufferedWriter(fw);
-
-                    bw.write(txtName.getText().trim());
-                    bw.newLine();
-
-                    bw.close();
-                    fw.close();
-
-                    cbChooseParticipant.addItem(txtName.getText().trim());
-                    JOptionPane.showMessageDialog(null, "Successfully Created..");
-                    txtName.setText(null);
-
-                } catch (IOException ex) {
-                    Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+                    try (Scanner s = new Scanner(f)) {
+                        if (f.exists()) {
+                            while (s.hasNext()) {
+                                count++;
+                                String parts[] = s.nextLine().split(",");
+                                uniqueName = parts[0].toLowerCase();
+                                if (parts[1].equals(cbChooseCompetition.getSelectedItem().toString())) {
+                                    countComp++;
+                                }
+                                
+                                if (uniqueName.equals(txtName.getText().toLowerCase().trim())) {
+                                    flag = false;
+                                    break;
+                                }
+                            }
+                            
+                        } else {
+                            System.out.println("File not Found..");
+                            
+                        }
+                        s.close();
+                    }
+                    
+                } catch (FileNotFoundException ex) {
+                    System.out.println("File not found");
                 }
-            }else {
-                JOptionPane.showMessageDialog(null, "Name already taken..", "Error Message ", ERROR_MESSAGE);
-            } 
-            }else {
-                JOptionPane.showMessageDialog(null, "Limit (40 Participants)", "Error Message ", ERROR_MESSAGE);
-            } 
-
+                
+                if (count < 40) {
+                    if (flag == true) {
+                        if (countComp < 20) {
+                            try {
+                                FileWriter fw = new FileWriter(f, true);
+                                BufferedWriter bw = new BufferedWriter(fw);
+                                
+                                bw.write(txtName.getText().trim() + "," + cbChooseCompetition.getSelectedItem().toString());
+                                bw.newLine();
+                                
+                                bw.close();
+                                fw.close();
+                                
+                                cbChooseParticipant.addItem(txtName.getText().trim());
+                                JOptionPane.showMessageDialog(null, "Successfully Created..");
+                                txtName.setText(null);
+                                cbChooseCompetition.setSelectedIndex(0);
+                                
+                            } catch (IOException ex) {
+                                Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Limit (20 " + cbChooseCompetition.getSelectedItem().toString() + " Participants Max)", "Error Message ", ERROR_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Name already taken..", "Error Message ", ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Limit (40 Participants Max)", "Error Message ", ERROR_MESSAGE);
+                }
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "Choose Competition..", "Error Message ", ERROR_MESSAGE);
+            }
+            
         }
 
     }//GEN-LAST:event_btnCreateParticipantActionPerformed
 
     private void cbChooseCompetitionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbChooseCompetitionActionPerformed
         // TODO add your handling code here:
-        loadEvents();
     }//GEN-LAST:event_cbChooseCompetitionActionPerformed
 
     private void btnCalculatePointsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculatePointsActionPerformed
         // TODO add your handling code here:
         if (!cbChooseParticipant.getSelectedItem().toString().equals("   Choose Partcipant...")) {
-            if (!cbChooseCompetition.getSelectedItem().toString().equals("   Choose Competition...")) {
-                if (!cbChooseEvent.getSelectedItem().toString().equals("   Choose Event...")) {
-                    if (!txtValue.getText().trim().isEmpty()) {
-                        try {
-                            if (Double.parseDouble(txtValue.getText().trim()) > 0) {
-                                loadEventsDetail();
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Please enter Positive Value", "Error Message ", ERROR_MESSAGE);
-                            }
-                        } catch (NumberFormatException e) {
-                            JOptionPane.showMessageDialog(null, "Please enter only Numbers", "Error Message ", ERROR_MESSAGE);
+            if (!cbChooseEvent.getSelectedItem().toString().equals("   Choose Event...")) {
+                if (!txtValue.getText().trim().isEmpty()) {
+                    try {
+                        if (Double.parseDouble(txtValue.getText().trim()) > 0) {
+                            loadEventsDetail();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Please enter Positive Value", "Error Message ", ERROR_MESSAGE);
                         }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Please enter Value", "Error Message ", ERROR_MESSAGE);
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(null, "Please enter only Numbers", "Error Message ", ERROR_MESSAGE);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Please Select Event", "Error Message ", ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Please enter Value", "Error Message ", ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Please Select Competition", "Error Message ", ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Please Select Event", "Error Message ", ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Please Select Participant", "Error Message ", ERROR_MESSAGE);
         }
-
+        
 
     }//GEN-LAST:event_btnCalculatePointsActionPerformed
 
@@ -373,6 +390,11 @@ public class GUI extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_btnExitActionPerformed
 
+    private void cbChooseParticipantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbChooseParticipantActionPerformed
+        // TODO add your handling code here:
+        loadEvents();
+    }//GEN-LAST:event_cbChooseParticipantActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -387,21 +409,21 @@ public class GUI extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
+                    
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(GUI.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(GUI.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(GUI.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GUI.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -437,33 +459,35 @@ public class GUI extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void loadParticipant() {
-
-        File f = new File("Participants.txt");
+        
+        File f = new File("Participants.csv");
         try {
             try (Scanner s = new Scanner(f)) {
                 if (f.exists()) {
                     while (s.hasNext()) {
-                        cbChooseParticipant.addItem(s.nextLine());
+                        String parts[] = s.nextLine().split(",");
+                        cbChooseParticipant.addItem(parts[0]);
                     }
-
+                    
                 } else {
                     System.out.println("File not Found..");
-
+                    
                 }
+                s.close();
             }
-
+            
         } catch (FileNotFoundException ex) {
             System.out.println("File not found");
         }
         cbChooseCompetition.addItem("   Decathlon");
         cbChooseCompetition.addItem("   Heptathlon");
-
+        
     }
-
+    
     private void loadEventsDetail() {
-
+        
         File f = null;
-        if (cbChooseCompetition.getSelectedItem().toString().equals("   Decathlon")) {
+        if (competition.equals("   Decathlon")) {
             f = new File("Decathlon_table.csv");
         } else {
             f = new File("Heptathlon_table.csv");
@@ -480,23 +504,23 @@ public class GUI extends javax.swing.JFrame {
                             break;
                         }
                     }
-
+                    
                 } else {
                     System.out.println("File not Found..");
-
                 }
+                s.close();
             }
-
+            
         } catch (FileNotFoundException ex) {
             Logger.getLogger(GUI.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     private void calculatePoints(double A, double B, double C, double P) {
         double Points = 0;
         int points = 0;
-        if (cbChooseCompetition.getSelectedItem().toString().equals("   Decathlon")) {
+        if (competition.equals("   Decathlon")) {
             Points = A * (Math.pow((B - P), C));
             points = (int) Points;
         } else {
@@ -505,60 +529,154 @@ public class GUI extends javax.swing.JFrame {
         }
         saveToFile(points);
     }
-
+    
     private void saveToFile(int Points) {
-
+        arrayList.clear();
         File f = new File("Result_Table.csv");
+        File f1 = new File("Result_Table1.csv");
+        Scanner s = null;
         try {
-            FileWriter fw = new FileWriter(f, true);
+            s = new Scanner(f);
+            if (s.hasNext()) {
+                while (s.hasNext()) {
+                    arrayList.add(s.nextLine());
+                }
+            }
+            s.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println("File not found..");
+        }
+        int index = 0;
+        boolean flag = true;
+        try {
+            FileWriter fw = new FileWriter(f1, true);
             BufferedWriter bw = new BufferedWriter(fw);
-
-            bw.write(cbChooseParticipant.getSelectedItem().toString() + "," + cbChooseCompetition.getSelectedItem().toString()
-                    + "," + cbChooseEvent.getSelectedItem().toString() + "," + Points);
-            bw.newLine();
-
+            if (arrayList.size() > 0) {
+                for (int i = 0; i < arrayList.size(); i++) {
+                    String parts[] = arrayList.get(i).split(",");
+                    if (Integer.parseInt(parts[3]) > Points) {
+                        bw.write(parts[0] + "," + parts[1]
+                                + "," + parts[2] + "," + parts[3]);
+                        bw.newLine();
+                    } else {
+                        bw.write(cbChooseParticipant.getSelectedItem().toString() + "," + competition
+                                + "," + cbChooseEvent.getSelectedItem().toString() + "," + Points);
+                        bw.newLine();
+                        index = i;
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag == false) {
+                    for (int i = index; i < arrayList.size(); i++) {
+                        String parts[] = arrayList.get(i).split(",");
+                        bw.write(parts[0] + "," + parts[1]
+                                + "," + parts[2] + "," + parts[3]);
+                        bw.newLine();
+                    }
+                } else if (flag == true) {
+                    bw.write(cbChooseParticipant.getSelectedItem().toString() + "," + competition
+                            + "," + cbChooseEvent.getSelectedItem().toString() + "," + Points);
+                    bw.newLine();
+                }
+            } else {
+                bw.write(cbChooseParticipant.getSelectedItem().toString() + "," + competition
+                        + "," + cbChooseEvent.getSelectedItem().toString() + "," + Points);
+                bw.newLine();
+            }
+            
             bw.close();
             fw.close();
-
+            
+            f.delete();
+            f1.renameTo(f);
+            
             JOptionPane.showMessageDialog(null, "Points: " + Points);
             JOptionPane.showMessageDialog(null, "Successfully Added into Excel File..");
             cbChooseParticipant.setSelectedIndex(0);
             cbChooseCompetition.setSelectedIndex(0);
             cbChooseEvent.setSelectedIndex(0);
             txtValue.setText(null);
-
+            btnCurentScore.setEnabled(true);
+            
         } catch (IOException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }
-
+    
     private void loadEvents() {
-        File f = null;
-        if (cbChooseCompetition.getSelectedItem().toString().equals("   Decathlon")) {
-            f = new File("Decathlon_table.csv");
+        
+        if (cbChooseParticipant.getSelectedIndex() == 0) {
+            cbChooseEvent.removeAllItems();
+            cbChooseEvent.addItem("   Choose Event...");
         } else {
-            f = new File("Heptathlon_table.csv");
-        }
-        try {
-            try (Scanner s = new Scanner(f)) {
-                if (f.exists()) {
-                    s.nextLine();
-                    cbChooseEvent.removeAllItems();
-                    cbChooseEvent.addItem("   Choose Event...");
-                    while (s.hasNext()) {
-                        String parts[] = s.nextLine().split(",");
-                        cbChooseEvent.addItem(parts[0]);
+            File ff = new File("Participants.csv");
+            try {
+                try (Scanner s = new Scanner(ff)) {
+                    if (ff.exists()) {
+                        while (s.hasNext()) {
+                            String parts[] = s.nextLine().split(",");
+                            if (parts[0].equals(cbChooseParticipant.getSelectedItem().toString())) {
+                                competition = parts[1];
+                            }
+                        }
+                        
+                    } else {
+                        System.out.println("File not Found..");
+                        
                     }
-                } else {
-                    System.out.println("File not Found..");
-
+                    s.close();
                 }
+                
+            } catch (FileNotFoundException ex) {
+                System.out.println("File not found");
             }
-
+            
+            File f = null;
+            
+            if (competition.equals("   Decathlon")) {
+                f = new File("Decathlon_table.csv");
+            } else {
+                f = new File("Heptathlon_table.csv");
+            }
+            try {
+                try (Scanner s = new Scanner(f)) {
+                    if (f.exists()) {
+                        s.nextLine();
+                        cbChooseEvent.removeAllItems();
+                        cbChooseEvent.addItem("   Choose Event...");
+                        while (s.hasNext()) {
+                            String parts[] = s.nextLine().split(",");
+                            cbChooseEvent.addItem(parts[0]);
+                        }
+                    } else {
+                        System.out.println("File not Found..");
+                        
+                    }
+                    s.close();
+                }
+                
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(GUI.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    private void checkResultTable() {
+        File f = new File("Result_Table.csv");
+        Scanner s = null;
+        try {
+            s = new Scanner(f);
+            if (s.hasNext()) {
+                
+            } else {
+                btnCurentScore.setEnabled(false);
+            }
+            s.close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(GUI.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            btnCurentScore.setEnabled(false);
         }
     }
 }
