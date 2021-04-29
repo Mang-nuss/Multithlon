@@ -5,19 +5,20 @@ Feature: score calculation
   @calculatingPoints
   Scenario Outline:
     Given I am a registered user
+    And   I have chosen the valid <event>
     When  I choose a relevant <discipline>
     And   I insert correct <performance> input
     Then  I can see a correct <result> based on respective input
 
 
     Examples:
-      | discipline | performance | result |
-      | 100m run   | 12.452      |        |
-      | Disc throw | 35.32       |        |
-      | Long jump  | 2.20        |        |
-      | 200m run   | 23.20       |        |
-      | High jump  | 1.82        |        |
-      | Javelin    | 57.18       |        |
+      | event      | discipline | performance | result |
+      | decathlon  | 100m run   | 12.452      |        |
+      | decathlon  | Disc throw | 35.32       |        |
+      | decathlon  | Long jump  | 2.20        |        |
+      | heptathlon | 200m run   | 23.20       |        |
+      | heptathlon | High jump  | 1.82        |        |
+      | heptathlon | Javelin    | 57.18       |        |
 
 
 
@@ -31,7 +32,12 @@ Feature: score calculation
 
 
 
-
+  @calculatingErrors
+  Scenario: user chooses a wrong event
+    Given I am a registered user
+    When  I choose a wrong event
+    Then  the points are not calculated
+    And   an error message is displayed
 
 
   Scenario: user not registered

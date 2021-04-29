@@ -1,4 +1,4 @@
-Feature: Registration of a new participant
+Feature: user registration
   I test the registration of a participant with both valid and invalid input
 
 @newUserRegistration
@@ -6,7 +6,6 @@ Feature: Registration of a new participant
     Scenario Outline:
     Given I have chosen an <event>
     When  I write a username as <username>
-
     Then  I can see a correct <message> based on respective input
 
 
