@@ -1,4 +1,4 @@
-Feature: Registration of a new participant
+Feature: user registration
   I test the registration of a participant with both valid and invalid input
 
 @newUserRegistration
