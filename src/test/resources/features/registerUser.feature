@@ -36,7 +36,7 @@ Feature: Registration of a new participant
         | noUsername        | heptathlon |  please enter a username                                         |
 
 
-  @maximumUsersReached
+  #@maximumUsersReached
   Scenario: I test the maximum number of registration
     Given There are maximum <number> of participants reached
     When  I try to register another <participant>
