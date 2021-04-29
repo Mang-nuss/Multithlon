@@ -1,33 +1,26 @@
 Feature: user registration
   I test the registration of a participant with both valid and invalid input
 
-@newUserRegistration
+  @newUserRegistration
+  Scenario Outline: 
+    Given I open the application
+    When I write a <username> and choose <event>
+    Then I get a status <message>
 
-    Scenario Outline:
-    Given I have chosen an <event>
-    When  I write a username as <username>
-    Then  I can see a correct <message> based on respective input
+    Examples: 
+      | username | event        | message                                                            |
+      | "name"   | "Decathlon"  | "Registration successful. You're now participating in Decathlon."  |
+      | "name"   | "Heptathlon" | "Registration successful. You're now participating in Heptathlon." |
+#      | "name"   | "Decathlon"  | "Name already exists. Note that you can only register once."       |
+#      | "name"   | "Heptathlon" | "Name already exists. Note that you can only register once."       |
+      |          | "Decathlon"  | "Please enter a name."                                             |
+      |          | "Heptathlon" | "Please enter a name."                                             |
+#      | "123"    | "Decathlon"  | "Invalid name, only letters and space are allowed."                |
+#      | "_?!"    | "Heptathlon" | "Invalid name, only letters and space are allowed."                |
 
-
-      Examples:
-        | username           | event        | message                                                             |
-        | "valid username"   | "decathlon"  |  "Your registration has been successful"                            |
-        | "valid username"   | "heptathlon" |  "Your registration has been successful"                            |
-        | "usernameTaken"    | "decathlon"  |  "Username is already taken. Note that you can only register once." |
-        | "usernameTaken"    | "heptathlon" |  "Username is already taken. Note that you can only register once." |
-        | "noUsername        | "heptathlon" |  "please enter a username"                                          |
-        | "noUsername        | "decathlon"  |  "please enter a username"                                          |
-        | "invalid username" | "decathlon"  |  "You wrote and invalid form of a user name"                        |
-        | "invalid username" | "heptathlon" |   "You wrote and invalid form of a user name"                       |
-
-                                    |
-
-
-  #@maximumUsersReached
+  @maximumUsersReached
   Scenario: I test the maximum number of registration
     Given There are maximum <number> of participants reached
-    When  I try to register another <participant>
-    Then  the registration is unsuccessful
-    And   The <error message> is displayed
-
-
+    When I try to register another <participant>
+    Then the registration is unsuccessful
+    And The <error message> is displayed

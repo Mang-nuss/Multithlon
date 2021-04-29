@@ -1,22 +1,30 @@
 package stepDefinitions;
 
+import static org.junit.Assert.assertEquals;
+
+import common.Users;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class StepDefinitions {
-    @When("I write a username as {string}")
-    public void iWriteAUsernameAsUsername(String username) {
-        System.out.println(username);
+	
+	private Users user = new Users();
+	private String actualMessage;
+	
+	@Given("I open the application")
+	public void i_open_the_application() {
+	   System.out.println("Opens application");
+	}
+	
+	@When("I write a {string} and choose {string}")
+    public void i_write_a_name_and_choose_event(String username, String event) {
+        actualMessage = user.addUser(username, user.chooseEvent(event));
     }
 
-    @And("I choose one of the events as {string}")
-    public void iChooseOneOfTheEventsAsEvents(String event) {
-        System.out.println(event);
-    }
-
-    @Then("I can see a correct {string} based on respective input")
-    public void iCanSeeACorrectMessageBasedOnRespectiveInput(String message) {
-        System.out.println(message);
+    @Then("I get a status {string}")
+    public void i_get_a_status_message(String message) {
+    	assertEquals(message, actualMessage);
     }
 }
