@@ -20,8 +20,6 @@ Feature: user registration
         | "invalid username" | "decathlon"  |  "You wrote and invalid form of a user name"                        |
         | "invalid username" | "heptathlon" |   "You wrote and invalid form of a user name"                       |
 
-                                    |
-
 
   @maximumUsersReached
   Scenario: I test the maximum number of registration

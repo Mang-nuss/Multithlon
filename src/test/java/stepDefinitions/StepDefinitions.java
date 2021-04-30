@@ -1,6 +1,7 @@
 package stepDefinitions;
 
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
@@ -18,5 +19,10 @@ public class StepDefinitions {
     @Then("I can see a correct {string} based on respective input")
     public void iCanSeeACorrectMessageBasedOnRespectiveInput(String message) {
         System.out.println(message);
+    }
+
+    @Given("I have chosen an {string}")
+    public void iHaveChosenAnEvent(String event) {
+        System.out.println(event);
     }
 }
