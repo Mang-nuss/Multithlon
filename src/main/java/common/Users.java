@@ -10,83 +10,94 @@ public class Users {
 	private ArrayList<String> usersHeptathlon = new ArrayList<String>();
 	private boolean invalid;
 	private boolean valid;
+	private boolean empty;
 
 	public String addUser(String name) {
 		invalid = false;
 		valid = false;
+		empty = false;
 		usersDecathlon.add("Musse Pigg");
 		usersHeptathlon.add("Mimmie");
 
 		name = setTestData(name);
-		System.out.println(name);
+		System.out.println("the name: " + name);
 
 
-		if (name == null) {
+		if (name == "") {
 			message = "Please enter a name.";
+			empty = true;
 		}
 		else {
 			valid = isValid(name);
 			
 		}
-		
+
+		System.out.print("In decathlon: ");
 		for (String s : usersDecathlon) {
-			System.out.println(s);
+			System.out.print(s + ", ");
+			System.out.println();
 		}
+
+		System.out.print("In heptathlon: ");
 		for (String s : usersHeptathlon) {
-			System.out.println(s);
+			System.out.print(s + ", ");
+			System.out.println();
 		}
 		
 		if (usersDecathlon.contains(name) || usersHeptathlon.contains(name)) {
 			message = "Name already exists. Note that you can only register once.";
-			invalid = true;
-			System.out.println(invalid);
+			//invalid = true;
+			System.out.println("invalid");
 		}
 
 		if (valid) {
-			if (event.equals("Decathlon")) {
-				usersDecathlon.add(name);
-				message = "Registration successful. You're now participating in Decathlon.";
-			} else if (event.equals("Heptathlon")) {
-				usersHeptathlon.add(name);
-				message = "Registration successful. You're now participating in Heptathlon.";
+			if(!isAlreadyRegistered(name)) {
+				if (event.equals("Decathlon")) {
+					usersDecathlon.add(name);
+					message = "Registration successful. You're now participating in Decathlon.";
+				} else if (event.equals("Heptathlon")) {
+					usersHeptathlon.add(name);
+					message = "Registration successful. You're now participating in Heptathlon.";
+				} else {
+					message = "In order to register, you must choose which event to participate in.";
+				}
 			}
-
-			else {
-				message = "In order to register, you must choose which event to participate in.";
-			}	
 		}
 		else {
-			message = "Invalid name, only letters and space are allowed.";
+			if(!empty) { message = "Invalid name, only letters and space are allowed."; }
 		}
 
 		return message;
-	}
-
-	public boolean isLetter(char sign) {
-		boolean check = false;
-
-		if ((sign >= 'a' && sign <= 'z') || (sign >= 'A' && sign <= 'Z'))
-			check = true;
-
-		return check;
 	}
 	
 	public static boolean isValid(String s) {
 	    boolean valid = true;
 	    String a = "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	   
-	    	 for(int i = 0; i < s.length(); i++) {
-	 	        char c = s.charAt(i);
-	 	        for(int n = 0; n < a.length(); n++) {
-	 	            if (!a.contains(String.valueOf(c))) {
-	 	                valid = false;
-	 	                break;
-	 	            }
-	 	        }
-	 	    }
+		 for(int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			for(int n = 0; n < a.length(); n++) {
+				if (!a.contains(String.valueOf(c))) {
+					valid = false;
+					break;
+				}
+			}
+		}
 	 
 	   
 	    return valid;
+	}
+
+	public boolean isAlreadyRegistered(String name) {
+
+		for(String n : usersDecathlon) {
+			if(name.equals(n)) { return true; }
+		}
+		for(String n : usersHeptathlon) {
+			if(name.equals(n)) { return true; }
+		}
+
+		return false;
 	}
 
 	public String chooseEvent(String userEvent) {
@@ -109,7 +120,7 @@ public class Users {
 			name = "Mimmie";
 			break;
 		case "empty":
-			name = null;
+			name = "";
 			break;
 		case "invalid name 1":
 			name = "123";

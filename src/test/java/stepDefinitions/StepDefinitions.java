@@ -21,6 +21,7 @@ public class StepDefinitions {
 	@When("I write a {string} and press Create")
     public void i_write_a_name_and_press_Create(String username) {
         actualMessage = user.addUser(username);
+        System.out.println();
     }
 
     @Then("I get a status {string}")
