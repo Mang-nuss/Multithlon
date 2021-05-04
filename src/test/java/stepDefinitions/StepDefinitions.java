@@ -13,14 +13,14 @@ public class StepDefinitions {
 	private Users user = new Users();
 	private String actualMessage;
 	
-	@Given("I open the application")
-	public void i_open_the_application() {
-	   System.out.println("Opens application");
+	@Given("I choose {string}")
+	public void i_choose_event(String userEvent) {
+		user.chooseEvent(userEvent);
 	}
 	
-	@When("I write a {string} and choose {string}")
-    public void i_write_a_name_and_choose_event(String username, String event) {
-        actualMessage = user.addUser(username, user.chooseEvent(event));
+	@When("I write a {string} and press Create")
+    public void i_write_a_name_and_press_Create(String username) {
+        actualMessage = user.addUser(username);
     }
 
     @Then("I get a status {string}")

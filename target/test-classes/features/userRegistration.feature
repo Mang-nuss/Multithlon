@@ -3,20 +3,20 @@ Feature: user registration
 
   @newUserRegistration
   Scenario Outline: 
-    Given I open the application
-    When I write a <username> and choose <event>
+    Given I choose <event>
+    When I write a <name> and press Create
     Then I get a status <message>
 
     Examples: 
-      | username | event        | message                                                            |
-      | "name"   | "Decathlon"  | "Registration successful. You're now participating in Decathlon."  |
-      | "name"   | "Heptathlon" | "Registration successful. You're now participating in Heptathlon." |
-#      | "name"   | "Decathlon"  | "Name already exists. Note that you can only register once."       |
-#      | "name"   | "Heptathlon" | "Name already exists. Note that you can only register once."       |
-      |          | "Decathlon"  | "Please enter a name."                                             |
-      |          | "Heptathlon" | "Please enter a name."                                             |
-#      | "123"    | "Decathlon"  | "Invalid name, only letters and space are allowed."                |
-#      | "_?!"    | "Heptathlon" | "Invalid name, only letters and space are allowed."                |
+      | name               | event        | message                                                            |
+      | "male name"        | "Decathlon"  | "Registration successful. You're now participating in Decathlon."  |
+      | "female name"      | "Heptathlon" | "Registration successful. You're now participating in Heptathlon." |
+      | "already exists 1" | "Decathlon"  | "Name already exists. Note that you can only register once."       |
+      | "already exists 2" | "Heptathlon" | "Name already exists. Note that you can only register once."       |
+      | "empty"            | "Decathlon"  | "Please enter a name."                                             |
+      | "empty"            | "Heptathlon" | "Please enter a name."                                             |
+      | "invalid name 1"   | "Decathlon"  | "Invalid name, only letters and space are allowed."                |
+      | "invalid name 2"   | "Heptathlon" | "Invalid name, only letters and space are allowed."                |
 
   @maximumUsersReached
   Scenario: I test the maximum number of registration
