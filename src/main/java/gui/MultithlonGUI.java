@@ -129,13 +129,45 @@ public class MultithlonGUI {
 
     public static ActionListener textListener;
 
+    public static boolean isValid(String s) {
+
+        boolean valid = true;
+        String a = "ABC";
+        for(int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            for(int n = 0; n < a.length(); n++) {
+                if (!a.contains(String.valueOf(c))) {
+                    valid = false;
+                    break;
+                }
+            }
+        }
+        return valid;
+    }
+
     public static void main(String[] args) {
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+
+/*        javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI("Heptathlon");
             }
-        });
+        });*/
+
+/*        String s = "Kalle";
+        for(int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            System.out.println(isLetter(c));
+        }
+
+        s = "AA";
+        for(int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            System.out.println(isLetter(c));
+        }*/
+
+        System.out.println(isValid("Kalle"));
+        System.out.println(isValid("AA"));
     }
 }

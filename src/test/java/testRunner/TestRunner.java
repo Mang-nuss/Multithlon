@@ -5,10 +5,7 @@ import io.cucumber.junit.CucumberOptions;
 import io.cucumber.junit.Cucumber;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(
-        features="src/test/resources/features",
-        glue="stepDefinitions",
-        monochrome = true)
-
+@CucumberOptions(features="src/test/resources/features", glue="stepDefinitions")
 public class TestRunner {
+
 }
