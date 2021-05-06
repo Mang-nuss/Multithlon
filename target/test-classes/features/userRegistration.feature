@@ -13,17 +13,22 @@ Feature: user registration
       | name               | event        | message                                                            |
       | "male name"        | "Decathlon"  | "Registration successful. You're now participating in Decathlon."  |
       | "female name"      | "Heptathlon" | "Registration successful. You're now participating in Heptathlon." |
-      | "already exists 1" | "Decathlon"  | "Name already exists. Note that you can only register once."       |
-      | "already exists 2" | "Heptathlon" | "Name already exists. Note that you can only register once."       |
-      | "empty"            | "Decathlon"  | "Please enter a name."                                             |
-      | "empty"            | "Heptathlon" | "Please enter a name."                                             |
+      | "copy"        | "Decathlon"  | "Name already exists. Note that you can only register once."       |
+      | "copy"      | "Heptathlon" | "Name already exists. Note that you can only register once."       |
+      | ""            | "Decathlon"  | "Please enter a name."                                             |
+      | ""            | "Heptathlon" | "Please enter a name."                                             |
       | "invalid name 1"   | "Decathlon"  | "Invalid name, only letters and space are allowed."                |
       | "invalid name 2"   | "Heptathlon" | "Invalid name, only letters and space are allowed."                |
 
 
   @maximumUsersReached
-  Scenario: I test the maximum number of registration
-    Given There are maximum <number> of participants reached
+  Scenario Outline: I test the maximum number of registration
+    Given There are <number> of participants reached for <event>
     When I try to register another <participant>
-    Then the registration is unsuccessful
-    And The <error message> is displayed
+    Then The <message> is displayed
+
+    Examples:
+    | number  | event       | participant | message |
+    | 20      | "Decathlon" | "male name" | "Registration failed. The maximum nr of participants is reached." |
+    | 20      | "Heptathlon" | "female name" | "Registration failed. The maximum nr of participants is reached." |
+    | 19      | "Decathlon" | "male name" | "Registration successful. You're now participating in Decathlon." |
