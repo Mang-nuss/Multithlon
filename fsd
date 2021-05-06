@@ -1,0 +1,222 @@
+[33mcommit 896acf1cf07cc1322190dec718eef089599a7272[m[33m ([m[1;36mHEAD -> [m[1;32mdevelop[m[33m)[m
+Merge: 361c5e7 d3c257a
+Author: khaled <nas@example.com>
+Date:   Thu May 6 10:15:35 2021 +0200
+
+    new feature file
+
+[33mcommit 361c5e7fc38bbea1b93d1cd2191d41b441741e7e[m
+Author: khaled <nas@example.com>
+Date:   Thu Apr 29 16:27:01 2021 +0200
+
+    hey hey budy
+
+[33mcommit d3c257a9cfb4410cf72b99d7879ad3387b27d2de[m[33m ([m[1;31morigin/test[m[33m)[m
+Author: liduna <liduna@gmail.com>
+Date:   Thu Apr 29 14:04:37 2021 +0200
+
+    Registration without duplicities
+
+[33mcommit 04d8baaf423fbf5727918f641dffb5aa814156e7[m
+Author: liduna <liduna@gmail.com>
+Date:   Thu Apr 29 13:59:15 2021 +0200
+
+    Calculating feature and excel feature draft
+
+[33mcommit 90a90dd615829587397df8b9f5cbf85ca9054110[m
+Author: liduna <liduna@gmail.com>
+Date:   Thu Apr 29 13:55:12 2021 +0200
+
+    score Calculations feature  and export draft
+
+[33mcommit 2796bbf63f6c52616d2eaf5b786288ce920749ed[m
+Author: liduna <liduna@gmail.com>
+Date:   Mon Apr 26 13:06:18 2021 +0200
+
+    registration feature maximum users scenario
+
+[33mcommit 8452017bfa62216ccd7098dc48985706098d4518[m
+Merge: 2ddc567 575da0c
+Author: liduna <liduna@gmail.com>
+Date:   Mon Apr 26 11:16:06 2021 +0200
+
+    commit register user featureIII
+
+[33mcommit 2ddc5670e6d1e94efcea2806b4479bb0afd1e12a[m
+Author: liduna <liduna@gmail.com>
+Date:   Mon Apr 26 11:04:39 2021 +0200
+
+    commit register user feature
+
+[33mcommit 575da0c7a7b11f0521c2823f7d82b2ab24243fc7[m
+Merge: f6d32f6 a8a43b1
+Author: liduna <54116373+liduna@users.noreply.github.com>
+Date:   Mon Apr 26 10:57:02 2021 +0200
+
+    Merge pull request #3 from Mang-nuss/mj_test
+    
+    Changes to pom file, and basic step definitions
+
+[33mcommit a8a43b189bab5a1fb76a8e82c36d47c093381236[m
+Author: Magnus Johansson <johansson.magnus.86@gmail.com>
+Date:   Sat Apr 24 19:09:01 2021 +0200
+
+    updating parameter types and inserting step definition methods
+
+[33mcommit c021a5ba91ee7505a4be2f4b786d3cd830a06b15[m
+Author: Magnus Johansson <johansson.magnus.86@gmail.com>
+Date:   Sat Apr 24 18:25:43 2021 +0200
+
+    editing pom file due to tag duplication
+
+[33mcommit 224eafceb04ec48e80b1252a316a99fbf581e0cc[m
+Merge: f6d32f6 afd721e
+Author: liduna <liduna@gmail.com>
+Date:   Thu Apr 22 15:27:00 2021 +0200
+
+    Merge branch 'initial_gui' of https://github.com/Mang-nuss/Multithlon into test
+
+[33mcommit f6d32f6e60752353de5d91aea7eba1a3ab7e3708[m
+Merge: 1c0a918 df5bd57
+Author: liduna <liduna@gmail.com>
+Date:   Thu Apr 22 12:21:49 2021 +0200
+
+    Merge branch 'test' of https://github.com/Mang-nuss/Multithlon into test
+
+[33mcommit 1c0a91880d3ae7a4e1f6e412f863f19a5ce55b8e[m
+Author: liduna <liduna@gmail.com>
+Date:   Thu Apr 22 12:21:33 2021 +0200
+
+    basic test runner, step Definitions and feature draft commit
+
+[33mcommit df5bd572af80396edc959f25318d758de2524df2[m
+Author: Magnus Johansson <johansson.magnus.86@gmail.com>
+Date:   Thu Apr 22 11:49:47 2021 +0200
+
+    editing pom.xml to use the same dependencies like previous project
+
+[33mcommit 2820ea70ae3a3600d7db253aff66be3be1963727[m
+Merge: 6825cdf 902e2a7
+Author: liduna <liduna@gmail.com>
+Date:   Thu Apr 22 11:28:55 2021 +0200
+
+    Merge branch 'develop' of https://github.com/Mang-nuss/Multithlon into test
+
+[33mcommit afd721ee74ffa75aa910fe7ddbc3073af73ff2fc[m
+Merge: e6ba4dc 902e2a7
+Author: Magnus Johansson <johansson.magnus.86@gmail.com>
+Date:   Thu Apr 22 10:53:33 2021 +0200
+
+    Merge branch 'develop' of https://github.com/Mang-nuss/Multithlon into initial_gui
+
+[33mcommit e6ba4dc3695ed97dee95fff271c510b997b59f1e[m
+Author: Magnus Johansson <johansson.magnus.86@gmail.com>
+Date:   Thu Apr 22 10:53:05 2021 +0200
+
+    example method
+
+[33mcommit 902e2a77ab7414e11969965a29c0813ae882d9f2[m[33m ([m[1;31morigin/develop[m[33m)[m
+Author: khaled <nas@example.com>
+Date:   Thu Apr 22 10:25:11 2021 +0200
+
+    khaled commit
+
+[33mcommit 6825cdfb18021c4eb48af8fbd768eae38891c390[m
+Author: liduna <liduna@gmail.com>
+Date:   Thu Apr 22 10:08:54 2021 +0200
+
+    basic test structure Ludmila
+
+[33mcommit b9442881c45da6310b152c3ce0cf5a2ff9d1f760[m
+Merge: 60e941d 58d1780
+Author: liduna <54116373+liduna@users.noreply.github.com>
+Date:   Wed Apr 21 10:41:38 2021 +0200
+
+    Merge pull request #2 from Mang-nuss/initial_gui
+    
+    Initial gui
+
+[33mcommit 58d17807f0196205b1237c30a40f2f50cd534f49[m[33m ([m[1;31morigin/initial_gui[m[33m, [m[1;32minitial_gui[m[33m)[m
+Author: Magnus Johansson <johansson.magnus.86@gmail.com>
+Date:   Wed Apr 21 10:15:42 2021 +0200
+
+    to switch branch
+
+[33mcommit f54006ed11938130fadf83a65432bbf65afe1b01[m
+Author: Magnus Johansson <johansson.magnus.86@gmail.com>
+Date:   Sun Apr 18 17:23:33 2021 +0200
+
+    having inserted buttons, fields & areas in grid layout for all events
+
+[33mcommit b1c47469f9115857805585bf5b9751cbf9ff94db[m
+Author: Magnus Johansson <johansson.magnus.86@gmail.com>
+Date:   Sat Apr 17 18:47:05 2021 +0200
+
+    following instructions on linkedin video
+
+[33mcommit 6abeb9172e9a0f1c3092414e9384aa825c88cb31[m
+Author: Magnus Johansson <johansson.magnus.86@gmail.com>
+Date:   Fri Apr 16 11:15:22 2021 +0200
+
+    launching maven project to try out gui
+
+[33mcommit 60e941d51de6ca259b238d7a35d30be366527248[m
+Author: liduna <liduna@gmail.com>
+Date:   Thu Apr 15 12:37:18 2021 +0200
+
+    Ludmila commit
+
+[33mcommit dc400f77a08f2884b5d56d6722d4b598962d5370[m
+Merge: 7104e04 15bdde1
+Author: liduna <liduna@gmail.com>
+Date:   Thu Apr 15 12:31:25 2021 +0200
+
+    Merge branch 'develop' of https://github.com/Mang-nuss/Multithlon into develop
+
+[33mcommit 7104e044b846ddb6fd6f0443c3ca928159d7e43a[m
+Author: liduna <liduna@gmail.com>
+Date:   Thu Apr 15 12:16:24 2021 +0200
+
+    Lidu commit
+
+[33mcommit 15bdde1fb69b12f65507293e8793bd8803144f2f[m
+Author: Zeshan <bashirzeshan1987@hotmail.com>
+Date:   Thu Apr 15 12:15:06 2021 +0200
+
+    This is my first file commit
+
+[33mcommit 613166358593dae0adb6ed5afe5ad04a3c7553f7[m
+Author: Eva <evaling.hk@gmail.com>
+Date:   Thu Apr 15 11:42:55 2021 +0200
+
+    Fifth commit
+
+[33mcommit c31942b7679287c442d892d2d234168fb47806e0[m
+Author: Magnus Johansson <johansson.magnus.86@gmail.com>
+Date:   Thu Apr 15 11:12:27 2021 +0200
+
+    fourth commit
+
+[33mcommit ee1a3a38004c2fd32a1c64fac24d3c70f9a6dd76[m
+Author: Magnus Johansson <johansson.magnus.86@gmail.com>
+Date:   Thu Apr 15 11:10:53 2021 +0200
+
+    third commit
+
+[33mcommit 85f5c4e7b665c2343c8190fe752197488ed452aa[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Magnus Johansson <johansson.magnus.86@gmail.com>
+Date:   Thu Apr 15 11:03:28 2021 +0200
+
+    second commit
+
+[33mcommit 30371d60156ef7482a229843c6a606a44ea45449[m
+Author: Magnus Johansson <59422395+Mang-nuss@users.noreply.github.com>
+Date:   Thu Apr 15 10:54:11 2021 +0200
+
+    Add files via upload
+
+[33mcommit 136bc35e7cfa0f5116cb5625b4be06be005a2598[m
+Author: Magnus Johansson <59422395+Mang-nuss@users.noreply.github.com>
+Date:   Thu Apr 15 10:47:15 2021 +0200
+
+    Initial commit
