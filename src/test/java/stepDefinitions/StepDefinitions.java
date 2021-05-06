@@ -20,7 +20,8 @@ public class StepDefinitions {
 	
 	@When("I write a {string} and press Create")
     public void i_write_a_name_and_press_Create(String username) {
-        actualMessage = user.addUser(username, user.getEvent());
+		user.insertCopies(username);
+		actualMessage = user.addUser(username, user.getEvent());
         System.out.println();
     }
 
@@ -29,34 +30,25 @@ public class StepDefinitions {
     	assertEquals(message, actualMessage);
     }
 
-    @Given("I have chosen an {string}")
-    public void iHaveChosenAnEvent(String event) {
-        System.out.println(event);
-    }
-
-    @Given("There are {int} of participants reached for {string}")
-    public void thereAreMaximumNumberOfParticipantsReachedForEvent(int nr, String event) {
+    @Given("There are {int} of participants in {string}")
+    public void thereAreNumberOfParticipantsInEvent(int nr, String event) {
 	    user.setEvent(event);
         if(event.equals("Decathlon")) {
             user.storeUsers(nr, user.usersDecathlon);
-            System.out.println(user.usersDecathlon.size());
         }
         else if(event.equals("Heptathlon")) {
             user.storeUsers(nr, user.usersHeptathlon);
-            System.out.println(user.usersHeptathlon.size());
         }
 
     }
 
     @When("I try to register another {string}")
     public void iTryToRegisterAnotherParticipant(String name) {
-	    user.addUser(name, user.getEvent());
-	    System.out.println("when statement done");
-
+    	actualMessage = user.addUser(name, user.getEvent());
     }
 
     @Then("The {string} is displayed")
-    public void theMessageIsDisplayed(String assumedMessage) {
-	    assertEquals(assumedMessage, user.message);
+    public void theMessageIsDisplayed(String message) {
+	    assertEquals(message, actualMessage);
     }
 }
