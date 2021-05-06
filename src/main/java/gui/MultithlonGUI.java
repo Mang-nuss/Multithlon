@@ -1,8 +1,8 @@
 package gui;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 public class MultithlonGUI {
@@ -94,6 +94,11 @@ public class MultithlonGUI {
     }
 
     public static int calculatePoints(String event, int result) {
+
+        return result;
+    }
+
+    public static int calculatePoints2(String event, int result) {
 
         return result;
     }
