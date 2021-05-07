@@ -9,15 +9,15 @@ Feature: score calculation
     Then I can see a correct <result> based on respective input
 
     Examples: 
-      | event        | discipline   | performance | result |
-      | "Decathlon"  | "100m run"   | 12.452      |        |
-      | "Decathlon"  | "Disc throw" | 35.32       |        |
-      | "Decathlon"  | "Long jump"  | 2.20        |        |
-      | "Heptathlon" | "200m run"   | 23.20       |        |
-      | "Heptathlon" | "High jump"  | 1.82        |        |
-      | "Heptathlon" | "Javelin"    | 57.18       |        |
+      | event        | discipline       | performance | result |
+      | "Decathlon"  | "100m"           | 12.452      |        |
+      | "Decathlon"  | "Discus throw"   | 35.32       |        |
+      | "Decathlon"  | "Long jump"      | 2.20        |        |
+      | "Heptathlon" | "200m"           | 23.20       |        |
+      | "Heptathlon" | "High jump"      | 1.82        |        |
+      | "Heptathlon" | "Javelin throw"  | 57.18       |        |
 
-  @calculation
+  @theCalculation
   Scenario: invalid input is entered
     Given I am a registered user
     And I chose the discipline
