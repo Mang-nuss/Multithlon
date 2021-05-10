@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import common.Event;
 import common.Users;
+import gui.MultithlonGUI;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -12,7 +13,8 @@ import io.cucumber.java.en.When;
 import java.util.ArrayList;
 
 public class StepDefinitions {
-	
+
+    public MultithlonGUI gui = new MultithlonGUI();
 	private Users user;
 	public String actualMessage;
 	public String event;
@@ -27,6 +29,7 @@ public class StepDefinitions {
 		//user.setEvent(userEvent);
         if(userEvent.equals("Decathlon")) { theEvent = new Event("Decathlon"); }
         else if(userEvent.equals("Heptathlon")) { theEvent = new Event("Heptathlon"); }
+        gui.events.add(theEvent);
         event = userEvent;
 	}
 	
@@ -35,15 +38,15 @@ public class StepDefinitions {
 		//Users.insertCopies(username, event);
         if (username.equals("copy")) {/*
             if (theEvent.getName().equals("Decathlon")) {*/
-            user = new Users(username, theEvent.getName());
-            theEvent.addToUsersList(new Users(username, event));
+            user = new Users(username, theEvent);
+            theEvent.addToUsersList(new Users(username, theEvent));
             System.out.println(username + " added");/*
             } else if (theEvent.getName().equals("Heptathlon")) {
                 theEvent.addToUsersList(new Users(username, event));
                 System.out.println(username + " added");
             }*/
         }
-		actualMessage = Users.addUser(username, event);
+		actualMessage = theEvent.addUser(username, theEvent);
         System.out.println();
     }
 
@@ -54,19 +57,37 @@ public class StepDefinitions {
 
     @Given("There are {int} of participants in {string}")
     public void thereAreNumberOfParticipantsInEvent(int nr, String event) {
-	    user.setEvent(event);
-        if(event.equals("Decathlon")) {
-            Users.storeUsers(event, usersDecathlon, nr);
+
+        if(event.equals("Decathlon")) { theEvent = new Event("Decathlon"); }
+        else if(event.equals("Heptathlon")) { theEvent = new Event("Heptathlon"); }
+        gui.events.add(theEvent);
+        //event = userEvent;
+
+	    for(Event e : gui.events) {
+	        if(e.getName().equals(event)) {
+                for (int n = 0; n < nr; n++) {
+                    String name = "Magnus ";
+                    Users user = new Users(name+n, theEvent);
+                    //String name = "participant" + n;
+                    theEvent.addToUsersList(user);
+                }
+            }
+	        else { System.out.println("No match!"); }
+        }
+	    System.out.println("Event: " + theEvent.getName());
+	    //user.setEvent(event);
+/*        if(event.equals("Decathlon")) {
+            Users.storeUsers(nr);
         }
         else if(event.equals("Heptathlon")) {
             Users.storeUsers(event, usersHeptathlon, nr);
-        }
+        }*/
 
     }
 
     @When("I try to register another {string}")
     public void iTryToRegisterAnotherParticipant(String name) {
-    	actualMessage = user.addUser(name, user.getEvent());
+    	actualMessage = theEvent.addUser(name, theEvent);
     }
 
     @Then("The {string} is displayed")

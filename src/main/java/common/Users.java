@@ -17,16 +17,29 @@ public class Users {
 	private boolean empty;
 	public boolean maxReached;
 
-	public Users(String name, String e) {
+	public Users(String name, Event e) {
 
 		id = idNr;
 		username = name;
 		result = 0;
-		event = e;
+		event = e.getName();
 		currentDiscipline = null;
 
 		idNr++;
 	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setEvent(String userEvent) {
+		event = userEvent;
+	}
+
+	public String getEvent() {
+		return event;
+	}
+/*
 
 	public String addUser(String name, String e) {
 		valid = false;
@@ -53,9 +66,11 @@ public class Users {
 					System.out.println("name: " + name + ", id: " + u.id);
 					message = "Registration successful. You're now participating in Decathlon.";
 				} else if (event.equals("Heptathlon")) {
+*/
 /*					Users u = new Users(name, event);
 					usersHeptathlon.add(u);
-					System.out.println("name: " + name + ", id: " + u.id);*/
+					System.out.println("name: " + name + ", id: " + u.id);*//*
+
 					message = "Registration successful. You're now participating in Heptathlon.";
 
 				} else {
@@ -73,7 +88,7 @@ public class Users {
 		return message;
 	}
 
-	public boolean isValid(String s, String event) {
+	public boolean isValid(String s) {
 		boolean valid = true;
 		String a = "abcdefghijklmnopqrstuvwxyzåäöü ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖÜ";
 
@@ -106,7 +121,7 @@ public class Users {
 		return false;
 	}
 
-	private String getUsername() {
+	public String getUsername() {
 		return username;
 	}
 
@@ -131,6 +146,7 @@ public class Users {
 		return event;
 	}
 
+*/
 /*	public void insertCopies(String name, String e) {
 		if (name.equals("copy")) {
 			if (e.equals("Decathlon")) {
@@ -141,7 +157,8 @@ public class Users {
 				System.out.println(name + " added");
 			}
 		}
-	}*/
+	}*//*
+
 
 	public static void storeUsers(String event, ArrayList<Users> al, int nrOfContestants) {
 
@@ -152,5 +169,6 @@ public class Users {
 			al.add(user);
 		}
 	}
+*/
 
 }

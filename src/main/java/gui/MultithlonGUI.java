@@ -1,9 +1,14 @@
 package gui;
 
+//import jdk.internal.jimage.ImageStrings;
+
+import common.Event;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class MultithlonGUI {
 
@@ -41,6 +46,23 @@ public class MultithlonGUI {
             "Javelin throw",
             "800 m",
             "200 m"};
+
+    public ArrayList<common.Event> events;
+
+    public MultithlonGUI() {
+
+        events = new ArrayList<>();
+    }
+
+    public Event getEventByName(String name) {
+        Event evt = null;
+        for (Event e : events) {
+            if (e.getName().equals(name)) {
+                evt = e;
+            }
+        }
+        return evt;
+    }
 
     public static void createAndShowGUI(String contest) {
 
