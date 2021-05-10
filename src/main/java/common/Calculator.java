@@ -50,6 +50,7 @@ public class Calculator {
             }
         }
         //saveToFile(points);
+        System.out.println("calculated score is: " + points);
         return points;
     }
 

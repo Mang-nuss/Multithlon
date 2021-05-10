@@ -31,12 +31,12 @@ Feature: score calculation
 
     Examples: 
       | event        | discipline       | performance | result |
-      | "Decathlon"  | "100m"           | 12.452      |        |
-      | "Decathlon"  | "Discus throw"   | 35.32       |        |
-      | "Decathlon"  | "Long jump"      | 2.20        |        |
-      | "Heptathlon" | "200m"           | 23.20       |        |
-      | "Heptathlon" | "High jump"      | 1.82        |        |
-      | "Heptathlon" | "Javelin throw"  | 57.18       |        |
+      | "Decathlon"  | "100m"           | 12.45       | 522    |
+      | "Decathlon"  | "Discus throw"   | 35.32       | 570    |
+      | "Decathlon"  | "Long jump"      | 5.70        | 523    |
+      | "Heptathlon" | "200m"           | 23.20       | 1035   |
+      | "Heptathlon" | "High jump"      | 1.82        | 1003   |
+      | "Heptathlon" | "Javelin throw"  | 57.18       | 1000   |
 
   @theCalculation
   Scenario: invalid input is entered

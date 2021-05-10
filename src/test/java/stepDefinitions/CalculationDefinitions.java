@@ -8,6 +8,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import static org.junit.Assert.assertEquals;
+
 public class CalculationDefinitions {
 
 	public MultithlonGUI gui = new MultithlonGUI();
@@ -27,27 +29,30 @@ public class CalculationDefinitions {
 		gui.events.add(heptathlon);
 		evt = gui.getEventByName(e);
 		user = new Users("Eva", evt);
-		event = e;
 		System.out.println("You're registered in " + user.getEvent());
 	}
 
 	@When("I choose a relevant {string}")
 	public void i_choose_a_relevant_discipline(String disc) {
 		discipline = disc;
-		calculator.pickDisciplineFromMap(event, disc);
+		calculator.pickDisciplineFromMap(evt.getName(), disc);
 		System.out.println("values = " + calculator.getValues());
 	}
 	
 	@When("I insert correct {double} input")
-	public void i_insert_correct_input(Double result) {
-		calculator.setResultInput(result);
+	public void i_insert_correct_input(Double res) {
+		calculator.setResultInput(res);
+		result = res;
+		if(evt.getName().equals("Decathlon")) { values = evt.Dc.get(discipline); }
+		else if(evt.getName().equals("Heptathlon")) { values = evt.Hc.get(discipline); }
 		System.out.println("result = " + calculator.getResult());
 	}
 
-	@Then("I can see a correct  based on respective input")
-	public void i_can_see_a_correct_based_on_respective_input() {
+	@Then("I can see a correct {int} based on respective input")
+	public void i_can_see_a_correct_based_on_respective_input(int score) {
 		System.out.println("in then line");
-		result = calculator.getResult();
-		calculator.calculateScore(event, discipline, result, values);
+		//int expected = calculator.calculateScore();
+		int expected = calculator.calculateScore(evt.getName(), discipline, result, values);
+		assertEquals(expected, score);
 	}
 }

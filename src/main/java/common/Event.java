@@ -3,20 +3,49 @@ package common;
 import gui.MultithlonGUI;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Event {
 
     public String eventName;
     public ArrayList<Users> users;
+    public Map<String, double[]> Dc = new HashMap<String, double[]>();
+    public Map<String, double[]> Hc = new HashMap<String, double[]>();
 
     public Event(String name) {
 
         eventName = name;
         users = new ArrayList<>();
+        addConstants(name);
     }
 
     public void addToUsersList(Users u) {
         users.add(u);
+    }
+
+    public void addConstants(String name) {
+        if(name.equals("Decathlon")) {
+            Dc.put("100m", new double[]{25.4347, 18.0, 1.81});
+            Dc.put("Long jump", new double[]{.14354, 220.0, 1.4});
+            Dc.put("Shot put", new double[]{51.39, 1.5, 1.05});
+            Dc.put("High jump", new double[]{.8465, 75.0, 1.42});
+            Dc.put("400m", new double[]{1.53775, 82.0, 1.81});
+            Dc.put("110m hurdles", new double[]{5.74352, 28.5, 1.92});
+            Dc.put("Discus throw", new double[]{12.91, 4.0, 1.1});
+            Dc.put("Pole vault", new double[]{.2797, 100.0, 1.35});
+            Dc.put("Javelin throw", new double[]{10.14, 7.0, 1.08});
+            Dc.put("1500m", new double[]{.03768, 480.0, 1.85});
+        }
+        else if(name.equals("Heptathlon")) {
+            Hc.put("100m hurdles", new double[]{9.23076, 26.7, 1.835});
+            Hc.put("High jump", new double[]{1.84523, 75.0, 1.348});
+            Hc.put("Shot put", new double[]{56.0211, 1.5, 1.05});
+            Hc.put("200m", new double[]{4.99087, 42.5, 1.81});
+            Hc.put("Long jump", new double[]{.188807, 210.0, 1.41});
+            Hc.put("Javelin throw", new double[]{15.9803, 3.8, 1.04});
+            Hc.put("800m", new double[]{.11193, 254.0, 1.88});
+        }
     }
 
     public String getName() { return eventName; }
