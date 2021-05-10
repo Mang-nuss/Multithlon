@@ -4,13 +4,29 @@ import java.util.ArrayList;
 
 public class Users {
 
+	public int id;
+	public static int idNr = 1;
 	public String message;
 	public String event;
-	public ArrayList<String> usersDecathlon = new ArrayList<String>();
-	public ArrayList<String> usersHeptathlon = new ArrayList<String>();
+	public String username;
+	public String currentDiscipline;
+	public int result;
+	public ArrayList<Users> usersDecathlon = new ArrayList<>();
+	public ArrayList<Users> usersHeptathlon = new ArrayList<>();
 	private boolean valid;
 	private boolean empty;
 	public boolean maxReached;
+
+	public Users(String name, String e) {
+
+		id = idNr;
+		username = name;
+		result = 0;
+		event = e;
+		currentDiscipline = null;
+
+		idNr++;
+	}
 
 	public String addUser(String name, String e) {
 		valid = false;
@@ -32,10 +48,14 @@ public class Users {
 			if (!isAlreadyRegistered(name)) {
 				System.out.println("event for " + name + " should be " + event);
 				if (event.equals("Decathlon")) {
-					usersDecathlon.add(name);
+					Users u = new Users(name, event);
+					usersHeptathlon.add(u);
+					System.out.println("name: " + name + ", id: " + u.id);
 					message = "Registration successful. You're now participating in Decathlon.";
 				} else if (event.equals("Heptathlon")) {
-					usersHeptathlon.add(name);
+/*					Users u = new Users(name, event);
+					usersHeptathlon.add(u);
+					System.out.println("name: " + name + ", id: " + u.id);*/
 					message = "Registration successful. You're now participating in Heptathlon.";
 
 				} else {
@@ -72,18 +92,22 @@ public class Users {
 
 	public boolean isAlreadyRegistered(String name) {
 
-		for (String n : usersDecathlon) {
-			if (name.equals(n)) {
+		for (Users u : usersDecathlon) {
+			if (u.getUsername().equals(name)) {
 				return true;
 			}
 		}
-		for (String n : usersHeptathlon) {
-			if (name.equals(n)) {
+		for (Users u : usersHeptathlon) {
+			if (u.getUsername().equals(name)) {
 				return true;
 			}
 		}
 
 		return false;
+	}
+
+	private String getUsername() {
+		return username;
 	}
 
 	public boolean maxNrReached(String event) {
@@ -107,23 +131,25 @@ public class Users {
 		return event;
 	}
 
-	public void insertCopies(String name) {
+/*	public void insertCopies(String name, String e) {
 		if (name.equals("copy")) {
-			if (event.equals("Decathlon")) {
-				usersDecathlon.add(name);
+			if (e.equals("Decathlon")) {
+				usersDecathlon.add(new Users(name, e));
 				System.out.println(name + " added");
-			} else if (event.equals("Heptathlon")) {
-				usersHeptathlon.add(name);
+			} else if (e.equals("Heptathlon")) {
+				usersHeptathlon.add(new Users(name, e));
 				System.out.println(name + " added");
 			}
 		}
-	}
+	}*/
 
-	public void storeUsers(int nrOfContestants, ArrayList<String> al) {
+	public static void storeUsers(String event, ArrayList<Users> al, int nrOfContestants) {
 
 		for (int n = 0; n < nrOfContestants; n++) {
-			String name = "participant" + n;
-			al.add(name);
+			String name = "Magnus";
+			Users user = new Users(name+n, event);
+			//String name = "participant" + n;
+			al.add(user);
 		}
 	}
 

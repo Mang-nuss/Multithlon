@@ -8,6 +8,9 @@ public class Calculator {
     public static double[] values;
     public static double d1, d2, d3;
     public static double resultInput;
+    private static String discipline;
+    public boolean isTrackEvent;
+    public String event;
     public static Map<String, double[]> Dc = new HashMap<String, double[]>();
     public static Map<String, double[]> Hc = new HashMap<String, double[]>();
     public static String[] trackEvents =
@@ -20,18 +23,53 @@ public class Calculator {
 
         populateConstantMaps();
         resultInput = 0;
+        event = null;
     }
 
     public static void setResultInput(double r) {
         resultInput = r;
     }
 
-    public static int calculateScore(double result, double[] constants) {
-        System.out.println("in calculate score");
-        return 0;
+    public int calculateScore(String event, String discipline, double result, double[] constants) {
+        System.out.println("in calculate score for event: " + getEvent());
+
+        String d = trackOrFieldEvent(discipline);
+        int points = 0;
+        if (event.equals("Decathlon")) {
+            if (d.equals("track event")) {
+                points = (int) ((int) constants[0] * (Math.pow((constants[1] - result), constants[2])));
+            } else if (d.equals("field event")) {
+                points = (int) (constants[0] * (Math.pow((result - constants[1]), constants[2])));
+            }
+        }
+        else if (event.equals("Heptathlon")) {
+            if (d.equals("track event")) {
+                points = (int) ((int) constants[0] * (Math.pow((constants[1] - result), constants[2])));
+            } else if (d.equals("field event")) {
+                points = (int) (constants[0] * (Math.pow((result - constants[1]), constants[2])));
+            }
+        }
+        //saveToFile(points);
+        return points;
     }
 
-    public static void pickDisciplineFromMap(String event, String discipline) {
+    public String trackOrFieldEvent(String discipline) {
+
+        isTrackEvent = false;
+
+        for(String s : trackEvents) {
+            if (discipline.equals(s)) {
+                isTrackEvent = true;
+            }
+        }
+
+        if(isTrackEvent) { return "track event"; }
+        else { return "field event"; }
+    }
+
+    public void pickDisciplineFromMap(String event, String discipline) {
+
+        setEvent(discipline);
         System.out.println("picking discipline");
         //values = new double[3];
         if(event.equals("Decathlon")) {
@@ -52,6 +90,13 @@ public class Calculator {
         }
 
         //return values;
+    }
+
+    public String getEvent() {
+        return event;
+    }
+    public void setEvent(String discipline) {
+        event = discipline;
     }
 
     public void populateConstantMaps() {

@@ -2,26 +2,48 @@ package stepDefinitions;
 
 import static org.junit.Assert.assertEquals;
 
+import common.Event;
 import common.Users;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import java.util.ArrayList;
+
 public class StepDefinitions {
 	
-	private Users user = new Users();
-	private String actualMessage;
+	private Users user;
+	public String actualMessage;
+	public String event;
+    public ArrayList<Users> usersDecathlon = new ArrayList<>();
+    public ArrayList<Users> usersHeptathlon = new ArrayList<>();
+    //public Event decathlon = new Event("Decathlon");
+    //public Event heptathlon = new Event("Heptathlon");
+    public Event theEvent;
 	
 	@Given("I choose {string}")
 	public void i_choose_event(String userEvent) {
-		user.setEvent(userEvent);
+		//user.setEvent(userEvent);
+        if(userEvent.equals("Decathlon")) { theEvent = new Event("Decathlon"); }
+        else if(userEvent.equals("Heptathlon")) { theEvent = new Event("Heptathlon"); }
+        event = userEvent;
 	}
 	
 	@When("I write a {string} and press Create")
     public void i_write_a_name_and_press_Create(String username) {
-		user.insertCopies(username);
-		actualMessage = user.addUser(username, user.getEvent());
+		//Users.insertCopies(username, event);
+        if (username.equals("copy")) {/*
+            if (theEvent.getName().equals("Decathlon")) {*/
+            user = new Users(username, theEvent.getName());
+            theEvent.addToUsersList(new Users(username, event));
+            System.out.println(username + " added");/*
+            } else if (theEvent.getName().equals("Heptathlon")) {
+                theEvent.addToUsersList(new Users(username, event));
+                System.out.println(username + " added");
+            }*/
+        }
+		actualMessage = Users.addUser(username, event);
         System.out.println();
     }
 
@@ -34,10 +56,10 @@ public class StepDefinitions {
     public void thereAreNumberOfParticipantsInEvent(int nr, String event) {
 	    user.setEvent(event);
         if(event.equals("Decathlon")) {
-            user.storeUsers(nr, user.usersDecathlon);
+            Users.storeUsers(event, usersDecathlon, nr);
         }
         else if(event.equals("Heptathlon")) {
-            user.storeUsers(nr, user.usersHeptathlon);
+            Users.storeUsers(event, usersHeptathlon, nr);
         }
 
     }
