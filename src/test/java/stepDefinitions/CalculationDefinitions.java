@@ -40,7 +40,7 @@ public class CalculationDefinitions {
 	}
 	
 	@When("I insert correct {double} input")
-	public void i_insert_correct_input(Double res) {
+	public void i_insert_correct_input(Double res) throws Exception {
 		calculator.setResultInput(res);
 		result = res;
 		if(evt.getName().equals("Decathlon")) { values = evt.Dc.get(discipline); }
@@ -54,5 +54,19 @@ public class CalculationDefinitions {
 		//int expected = calculator.calculateScore();
 		int expected = calculator.calculateScore(evt.getName(), discipline, result, values);
 		assertEquals(expected, score);
+	}
+	
+	@When("I insert invalid {double} input")
+	public void i_insert_invalid_input(Double res) throws Exception {
+		calculator.setResultInput(res);
+		result = res;
+		if(evt.getName().equals("Decathlon")) { values = evt.Dc.get(discipline); }
+		else if(evt.getName().equals("Heptathlon")) { values = evt.Hc.get(discipline); }
+		System.out.println("result = " + calculator.getResult());
+	}
+
+	@Then("I can see an error {string}")
+	public void i_can_see_an_error_message(String message) {
+		assertEquals(message, calculator.message);
 	}
 }
