@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 
 
 public class MethodsTest {
-	
+
 	Methods m = new Methods();
 
 	public MethodsTest() {
@@ -53,8 +53,8 @@ public class MethodsTest {
 		boolean expResult = true;
 		boolean result = m.nameValidations(name);
 		assertEquals(expResult, result);
-		
-		
+
+
 	}
 	@Test
 	public void testNameValidationsNumbers() {
@@ -65,7 +65,7 @@ public class MethodsTest {
 		assertEquals(expResult, result);
 
 	}
-	
+
 	@Test
 	public void testNameValidationsSpecialCharacters() {
 		System.out.println("nameValidationsWithSpecialCharacters");
@@ -75,7 +75,7 @@ public class MethodsTest {
 		assertEquals(expResult, result);
 
 	}
-	
+
 	@Test
 	public void testNameValidationsLongUserName() {
 		System.out.println("nameValidationsWithLongUser");
@@ -111,49 +111,55 @@ public class MethodsTest {
 	/**
 	 * Test of calculatePoints method, of class Methods.
 	 */
-	
-	@Test
-	
-      public void testCalculatePointsWithDecathlon() {
-    	  
-    	  double a = 25.4373;
-    	  double b = 18;
-    	  double c = 1.81;
-    	  double value = 11.00;
-    	  String  competition = "decathlon";
-    	  
-    	  int expResult = 861;
-    	  
-    	  int result = m.calculatePoints(a, b, c, value, competition);
-    	  
-  		assertEquals(expResult, result);
 
-    	 	  
-    	  
-    	  
-      }
-	
 	@Test
-	
-    public void testCalculatePointsWithHeptathlon() {
-  	  
-  	  double a = 56.021;
-  	  double b = 1.5;
-  	  double c = 1.05;
-  	  double value =16.5;
-  	  String  competition = "heptathlon";
-  	  
-  	  int expResult = 962;
-  	  
-  	  int result = m.calculatePoints(a, b, c, value, competition);
-  	  
+
+	public void testCalculatePointsWithDecathlon() {
+
+		System.out.println("testCalculatePointsWithDecathlon");
+
+
+		double a = 25.4373;
+		double b = 18;
+		double c = 1.81;
+		double value = 11.00;
+		String  competition = "decathlon";
+
+		int expResult = 861;
+
+		int result = m.calculatePoints(a, b, c, value, competition);
+
 		assertEquals(expResult, result);
 
-  	 	  
-  	  
-  	  
-    }
-    
-    
+
+
+
+	}
+
+	@Test
+
+	public void testCalculatePointsWithHeptathlon() {
+
+		System.out.println("testCalculatePointsWithHeptathlon");
+
+
+		double a = 56.021;
+		double b = 1.5;
+		double c = 1.05;
+		double value =16.5;
+		String  competition = "heptathlon";
+
+		int expResult = 962;
+
+		int result = m.calculatePoints(a, b, c, value, competition);
+
+		assertEquals(expResult, result);
+
+
+
+
+	}
+
+
 
 }
