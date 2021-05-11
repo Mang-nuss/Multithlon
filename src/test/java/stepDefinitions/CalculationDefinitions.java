@@ -22,6 +22,7 @@ public class CalculationDefinitions {
 	public Event decathlon = new Event("Decathlon");
 	public Event heptathlon = new Event("Heptathlon");
 	public Event evt;
+	public boolean isValid;
 	
 	@Given("I am a registered user in {string}")
 	public void i_am_a_registered_user_in_event(String e) {
@@ -39,30 +40,33 @@ public class CalculationDefinitions {
 		System.out.println("values = " + calculator.getValues());
 	}
 	
-	@When("I insert correct {double} input")
-	public void i_insert_correct_input(Double res) throws Exception {
-		calculator.setResultInput(res);
-		result = res;
-		if(evt.getName().equals("Decathlon")) { values = evt.Dc.get(discipline); }
-		else if(evt.getName().equals("Heptathlon")) { values = evt.Hc.get(discipline); }
-		System.out.println("result = " + calculator.getResult());
+	@When("I insert correct {string} input")
+	public void i_insert_correct_input(String s) {
+		isValid = calculator.setResultInput(s);
+		if (isValid) {
+			result = Double.valueOf(s);
+			if(evt.getName().equals("Decathlon")) { values = evt.Dc.get(discipline); }
+			else if(evt.getName().equals("Heptathlon")) { values = evt.Hc.get(discipline); }
+			System.out.println("result = " + calculator.getResult());
+		}		
 	}
 
-	@Then("I can see a correct {int} based on respective input")
-	public void i_can_see_a_correct_based_on_respective_input(int score) {
+	@Then("I can see a correct {int}")
+	public void i_can_see_a_correct_result(int score) {
 		System.out.println("in then line");
-		//int expected = calculator.calculateScore();
 		int expected = calculator.calculateScore(evt.getName(), discipline, result, values);
 		assertEquals(expected, score);
 	}
 	
-	@When("I insert invalid {double} input")
-	public void i_insert_invalid_input(Double res) throws Exception {
-		calculator.setResultInput(res);
-		result = res;
-		if(evt.getName().equals("Decathlon")) { values = evt.Dc.get(discipline); }
-		else if(evt.getName().equals("Heptathlon")) { values = evt.Hc.get(discipline); }
-		System.out.println("result = " + calculator.getResult());
+	@When("I insert invalid {string} input")
+	public void i_insert_invalid_input(String s) {		
+		isValid = calculator.setResultInput(s);
+		if (isValid) {
+			result = Double.valueOf(s);
+			if(evt.getName().equals("Decathlon")) { values = evt.Dc.get(discipline); }
+			else if(evt.getName().equals("Heptathlon")) { values = evt.Hc.get(discipline); }
+			System.out.println("result = " + calculator.getResult());
+		}
 	}
 
 	@Then("I can see an error {string}")

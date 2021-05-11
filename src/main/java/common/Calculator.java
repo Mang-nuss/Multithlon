@@ -28,20 +28,29 @@ public class Calculator {
 		message = null;
 	}
 
-	public static void setResultInput(double r) throws Exception {
-		System.out.println("Inside setResultInput");
+	public boolean setResultInput(String s) {
+		boolean isValid = true;
+		double r = 0;
 		try {
-        	if (r > 0) {
-            	resultInput = r;
-                } else if (r <= 0) {
-                	message = "Only positive numbers larger than 0 are allowed.";
-                }        	
-        } catch (Exception e) {
-        	System.out.println("Exeption" + e.getStackTrace());
-        }
-    	
-    }
+			r = Double.parseDouble(s);
+		} catch (NullPointerException e) {
+			message = "You need to input a value in order to continue.";
+			System.out.println(message);
+			isValid = false;
+		} catch (NumberFormatException e) {
+			message = "Invalid input, only numbers are allowed.";
+			System.out.println(message);
+			isValid = false;
+		}
 
+		if (isValid && r > 0) {
+			resultInput = r;
+		} else if (isValid && r <= 0) {
+			message = "Only positive numbers larger than 0 are allowed.";
+		}
+
+		return isValid;
+	}
 
 	public int calculateScore(String event, String discipline, double result, double[] constants) {
 		System.out.println("in calculate score for event: " + getEvent());

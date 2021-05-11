@@ -5,8 +5,8 @@ Feature: score calculation
   Scenario Outline: 
     Given I am a registered user in <event>
     When I choose a relevant <discipline>
-    And I insert correct <performance> input
-    Then I can see a correct <result> based on respective input
+    And I insert correct "<performance>" input
+    Then I can see a correct <result>
 
     Examples: 
       | event        | discipline      | performance | result |
@@ -25,10 +25,10 @@ Feature: score calculation
     Then I can see an error <message>
 
     Examples: 
-      | event        | discipline      | performance | message                                           |
-      | "Decathlon"  | "100m"          | -12.45      | "Only positive numbers larger than 0 are allowed." |
-      | "Decathlon"  | "Discus throw"  |             | "Please enter a valid value, only numbers allowed" |
-      | "Decathlon"  | "Long jump"     | abc      | "Please enter a valid value, only numbers allowed" |
-      | "Heptathlon" | "200m"          | _?<      | "Please enter a valid value, only numbers allowed" |
-      | "Heptathlon" | "High jump"     |             | "Please enter a valid value, only numbers allowed" |
-      | "Heptathlon" | "Javelin throw" |         -56 | "Only positive numbers larger than 0 are allowed." |
+      | event        | discipline      | performance | message                                            |
+      | "Decathlon"  | "100m"          | "-12.45"    | "Only positive numbers larger than 0 are allowed." |
+      | "Decathlon"  | "Discus throw"  | "0.0"       | "Only positive numbers larger than 0 are allowed." |
+      | "Decathlon"  | "Long jump"     | "abc"       | "Invalid input, only numbers are allowed."         |
+      | "Heptathlon" | "200m"          | ""          | "You need to input a value in order to continue."  |
+      | "Heptathlon" | "High jump"     | "<%"        | "Invalid input, only numbers are allowed."         |
+      | "Heptathlon" | "Javelin throw" | "-57.18"    | "Only positive numbers larger than 0 are allowed." |
