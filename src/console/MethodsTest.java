@@ -33,13 +33,9 @@ public class MethodsTest {
 	public void tearDown() {
 	}
 
-	/**
-	 * Test of main method, of class Multithlon.
-	 */
-
 
 	/**
-	 * Test of nameValidations method, of class Multithlon.
+	 * Test of nameValidations method, of class Methods.
 	 */
 	@Test
 	public void testNameValidationsNameAlreadyTaken() {
@@ -92,7 +88,7 @@ public class MethodsTest {
 
 
 	/**
-	 * Test of competitionValidation method, of class Multithlon.
+	 * Test of competitionValidation method, of class Methods.
 	 */
 	@Test
 	public void testCompetitionValidationWrongCompetitionName() {
@@ -112,8 +108,51 @@ public class MethodsTest {
 		assertEquals(expResult, result);
 
 	}
+	/**
+	 * Test of calculatePoints method, of class Methods.
+	 */
 	
-   
+	@Test
+	
+      public void testCalculatePointsWithDecathlon() {
+    	  
+    	  double a = 25.4373;
+    	  double b = 18;
+    	  double c = 1.81;
+    	  double value = 11.00;
+    	  String  competition = "decathlon";
+    	  
+    	  int expResult = 861;
+    	  
+    	  int result = m.calculatePoints(a, b, c, value, competition);
+    	  
+  		assertEquals(expResult, result);
+
+    	 	  
+    	  
+    	  
+      }
+	
+	@Test
+	
+    public void testCalculatePointsWithHeptathlon() {
+  	  
+  	  double a = 56.021;
+  	  double b = 1.5;
+  	  double c = 1.05;
+  	  double value =16.5;
+  	  String  competition = "heptathlon";
+  	  
+  	  int expResult = 962;
+  	  
+  	  int result = m.calculatePoints(a, b, c, value, competition);
+  	  
+		assertEquals(expResult, result);
+
+  	 	  
+  	  
+  	  
+    }
     
     
 
