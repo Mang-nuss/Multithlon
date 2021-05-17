@@ -27,7 +27,7 @@ public class MultithlonGUI {
     public static JTextField resultField;
     public static JTextArea pointsArea;
     public static JComboBox eventCombo;
-    public static String[] decathlonEvents =
+    public static String[] decathlonDisciplines =
             {"Long jump",
             "High jump",
             "Shot put",
@@ -38,7 +38,7 @@ public class MultithlonGUI {
             "100 m",
             "Pole vault",
             "Discus throw"};
-    public static String[] heptathlonEvents =
+    public static String[] heptathlonDisciplines =
             {"Long jump",
             "High jump",
             "Shot put",
@@ -94,10 +94,10 @@ public class MultithlonGUI {
 
         switch (contest) {
             case "Decathlon":
-                initComponents(decathlonEvents);
+                initComponents(decathlonDisciplines);
                 break;
             case "Heptathlon":
-                initComponents(heptathlonEvents);
+                initComponents(heptathlonDisciplines);
                 break;
         }
 
