@@ -171,17 +171,17 @@ public class MultithlonGUI {
         return valid;
     }
 
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
 
-/*        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+*//*        javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI("Heptathlon");
             }
-        });*/
+        });*//*
 
-/*        String s = "Kalle";
+*//*        String s = "Kalle";
         for(int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             System.out.println(isLetter(c));
@@ -191,9 +191,9 @@ public class MultithlonGUI {
         for(int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             System.out.println(isLetter(c));
-        }*/
+        }*//*
 
         System.out.println(isValid("Kalle"));
         System.out.println(isValid("AA"));
-    }
+    }*/
 }
