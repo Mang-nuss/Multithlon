@@ -3,11 +3,13 @@ package gui;
 //import jdk.internal.jimage.ImageStrings;
 
 import common.Event;
+import common.ExcelPrinter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MultithlonGUI {
@@ -48,10 +50,12 @@ public class MultithlonGUI {
             "200 m"};
 
     public ArrayList<common.Event> events;
+    public ExcelPrinter printer;
 
     public MultithlonGUI() {
 
         events = new ArrayList<>();
+        printer = new ExcelPrinter("excel printer");
     }
 
     public Event getEventByName(String name) {

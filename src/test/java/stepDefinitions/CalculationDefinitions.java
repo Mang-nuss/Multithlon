@@ -8,6 +8,9 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import static org.junit.Assert.assertEquals;
 
 public class CalculationDefinitions {
@@ -23,11 +26,23 @@ public class CalculationDefinitions {
 	public Event heptathlon = new Event("Heptathlon");
 	public Event evt;
 	public boolean isValid;
-	
+
 	@Given("I am a registered user in {string}")
-	public void i_am_a_registered_user_in_event(String e) {
+	public void i_am_a_registered_user_in_event(String e) throws IOException {
 		gui.events.add(decathlon);
 		gui.events.add(heptathlon);
+
+		//Excel printer tryouts
+		Object[][] testData = {{"Long jump",1.11},{"High jump",2.22}};
+		System.out.println("excel printer name:" + gui.printer.excelName);
+		gui.printer.add(testData, "data");
+		gui.printer.write();
+		String name = "/Users/magnusjohansson/Dokument/MVT20/Testtekniker/Multithlon" + gui.printer.excelName;
+		System.out.println("\nprintout:" +
+				gui.printer.getCellInfo(gui.printer.excelName,0,0,0) + ", " +
+				gui.printer.getCellInfo(gui.printer.excelName,0,0,1));
+	//end of excel printer tryouts
+
 		evt = gui.getEventByName(e);
 		user = new Users("Eva", evt);
 		System.out.println("You're registered in " + user.getEvent());
