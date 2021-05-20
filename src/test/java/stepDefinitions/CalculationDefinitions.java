@@ -16,6 +16,7 @@ import static org.junit.Assert.assertEquals;
 public class CalculationDefinitions {
 
 	public MultithlonGUI gui = new MultithlonGUI();
+	public static int rowNr = 0;
 	public String event;
 	public String discipline;
 	public double result;
@@ -32,17 +33,6 @@ public class CalculationDefinitions {
 		gui.events.add(decathlon);
 		gui.events.add(heptathlon);
 
-		//Excel printer tryouts
-		Object[][] testData = {{"Long jump",1.11},{"High jump",2.22}};
-		System.out.println("excel printer name:" + gui.printer.excelName);
-		gui.printer.add(testData, "data");
-		gui.printer.write();
-		String name = "/Users/magnusjohansson/Dokument/MVT20/Testtekniker/Multithlon" + gui.printer.excelName;
-		System.out.println("\nprintout:" +
-				gui.printer.getCellInfo(gui.printer.excelName,0,0,0) + ", " +
-				gui.printer.getCellInfo(gui.printer.excelName,0,0,1));
-	//end of excel printer tryouts
-
 		evt = gui.getEventByName(e);
 		user = new Users("Eva", evt);
 		System.out.println("You're registered in " + user.getEvent());
@@ -56,20 +46,27 @@ public class CalculationDefinitions {
 	}
 	
 	@When("I insert correct {string} input")
-	public void i_insert_correct_input(String s) {
+	public void i_insert_correct_input(String s) throws IOException {
 		isValid = calculator.setResultInput(s);
 		if (isValid) {
 			result = Double.valueOf(s);
 			if(evt.getName().equals("Decathlon")) { values = evt.Dc.get(discipline); }
 			else if(evt.getName().equals("Heptathlon")) { values = evt.Hc.get(discipline); }
 			System.out.println("result = " + calculator.getResult());
+			Object[][] testData = {{"name", user.getUsername()},{discipline,calculator.getResult()}};
+			gui.printer.add(testData, "data", rowNr);
+			rowNr++;
+			gui.printer.write();
 		}		
 	}
 
 	@Then("I can see a correct {int}")
-	public void i_can_see_a_correct_result(int score) {
+	public void i_can_see_a_correct_result(int score) throws IOException {
 		System.out.println("in then line");
 		int expected = calculator.calculateScore(evt.getName(), discipline, result, values);
+/*		System.out.println("\nprintout:" +
+				gui.printer.getCellInfo(gui.printer.excelName,0,0,0) + ", " +
+				gui.printer.getCellInfo(gui.printer.excelName,0,0,1));*/
 		assertEquals(expected, score);
 	}
 	
