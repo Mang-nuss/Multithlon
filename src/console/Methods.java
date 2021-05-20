@@ -1,8 +1,11 @@
 package console;
 
+import java.io.BufferedWriter;
 import java.io.EOFException;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -305,7 +308,7 @@ public final class Methods {
         }
     }
 
-    void saveResults() {
+    void saveResults() throws IOException {
         try {
             fos = new FileOutputStream("ResultTable.dat");
             oos = new ObjectOutputStream(fos);
@@ -317,6 +320,7 @@ public final class Methods {
 
         } catch (IOException e) {
         }
+        saveDataintoExcelFile();
     }
 
     //load files data
@@ -419,4 +423,20 @@ public final class Methods {
         } catch (IOException | ClassNotFoundException e) {
         }
     }
+
+    void saveDataintoExcelFile() throws IOException {
+
+        BufferedWriter bw = new BufferedWriter(new FileWriter(new File("ResultTable.csv")));
+        bw.write("Name,Competition,Event,Points");
+        bw.newLine();
+
+        for (ResultTable rt : resultTable) {
+            bw.write(rt.getName() + "," + rt.getCompetition() + "," + rt.getEvent() + ","
+                    + rt.getPoints());
+            bw.newLine();
+        }
+
+        bw.close();
+    }
+
 }
