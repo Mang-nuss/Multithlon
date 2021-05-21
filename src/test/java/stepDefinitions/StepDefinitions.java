@@ -75,13 +75,6 @@ public class StepDefinitions {
 	        else { System.out.println("No match!"); }
         }
 	    System.out.println("Event: " + theEvent.getName());
-	    //user.setEvent(event);
-/*        if(event.equals("Decathlon")) {
-            Users.storeUsers(nr);
-        }
-        else if(event.equals("Heptathlon")) {
-            Users.storeUsers(event, usersHeptathlon, nr);
-        }*/
 
     }
 

@@ -69,7 +69,7 @@ public class Event {
 
         if (valid && !maxNrReached(evt)) {
             if (!isAlreadyRegistered(name)) {
-                System.out.println("event for " + name + " should be ");
+                //System.out.println("event for " + name + " should be ");
                 if (evt.getName().equals("Decathlon") || evt.getName().equals("Heptathlon")) {
                     Users u = new Users(name, evt);
                     evt.users.add(u);
@@ -129,5 +129,18 @@ public class Event {
         }
 
         return false;
+    }
+
+    public Users(String name) {
+
+        Users user = null;
+
+        for (Users u : users) {
+            if (u.getUsername().equals(name)) {
+                user = u;
+            }
+        }
+
+        return user;
     }
 }

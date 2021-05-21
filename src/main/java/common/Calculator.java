@@ -12,8 +12,12 @@ public class Calculator {
 	public static String message;
 	public boolean isTrackEvent;
 	public String event;
+
+	//not used
 	public static Map<String, double[]> Dc = new HashMap<String, double[]>();
 	public static Map<String, double[]> Hc = new HashMap<String, double[]>();
+	//
+
 	public static String[] trackEvents = new String[] { "100m", "100m hurdles", "110m hurdles", "200m", "400m", "800m",
 			"1500m" };
 	public static String[] fieldEvents = new String[] { "High jump", "Long jump", "Discus throw", "Pole vault",
