@@ -56,7 +56,7 @@ public class Calculator {
 		return isValid;
 	}
 
-	public int calculateScore(String event, String discipline, double result, double[] constants) {
+	public int calculateScore(String event, String discipline, double result, double[] constants) throws NullPointerException {
 		System.out.println("in calculate score for event: " + getEvent());
 
 		String d = trackOrFieldEvent(discipline);

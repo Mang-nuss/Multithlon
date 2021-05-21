@@ -47,15 +47,15 @@ public class MultithlonDemo {
                     chooseEvent();
                     break;
                 case 2:
-                    System.out.println("Register");
+                    //System.out.println("Register");
                     registerParticipant(theEvent);
                     break;
                 case 3:
-                    System.out.println("Enter results for participant");
+                    //System.out.println("Enter results for participant");
                     registerResult();
                     break;
                 case 4:
-                    System.out.println("Result table");
+                    //System.out.println("Result table");
                     showResultTable();
                     break;
                 case 5:
@@ -86,7 +86,10 @@ public class MultithlonDemo {
         }
     }
 
-    private static void enterResults(String discipline, Event evt) throws IOException {
+    /*
+     * TODO: handle outstanding results that are probably wrongly input
+     *  */
+    private static void enterResults(String discipline, Event evt) throws IOException, NullPointerException {
         System.out.print("Enter result: ");
         if(scanner.hasNext()) {
             result = scanner.next();
@@ -101,17 +104,26 @@ public class MultithlonDemo {
                     values = evt.Hc.get(discipline);
                 }
                 System.out.println("result = " + calculator.getResult());
-                score = calculator.calculateScore(evt.getName(), discipline, res, values);
-                System.out.println("score for discipline " + discipline +
-                        " result " + res + " is " + score);
-                Object[][] testData = {{"name", user.getUsername()}, {discipline, calculator.getResult()}};
-                gui.printer.add(testData, "data", rowNr);
-                rowNr++;
-                gui.printer.write();
+
+                try {
+                    score = calculator.calculateScore(evt.getName(), discipline, res, values);
+                    System.out.println("score for discipline " + discipline +
+                            " result " + res + " is " + score);
+                    Object[][] testData = {{"name", user.getUsername()}, {discipline, calculator.getResult()}};
+                    gui.printer.add(testData, "data", rowNr);
+                    rowNr++;
+                    gui.printer.write();
+                } catch(NullPointerException npe) {
+                    System.out.println("Are those data applicable?");
+                }
             }
         }
     }
 
+    /*
+    * TODO: one should not be able to choose a discipline that is not included in the event,
+    *  e.g. 200m for decathlon
+    * */
     private static void chooseDiscipline(Event e) {
         System.out.print("For event " + e.getName() + ", enter discipline name: ");
         if(scanner.hasNext()) {
@@ -127,17 +139,21 @@ public class MultithlonDemo {
     private static void showResultTable() {
     }
 
-    private static void registerParticipant(Event evt) {
+    private static void registerParticipant(Event evt) throws NullPointerException {
 
         System.out.print("Enter participant name: ");
         if(scanner.hasNext()) {
             username = scanner.next();
             System.out.println();
 
-            user = new Users(username, evt);
-            //theEvent.addToUsersList(new Users(username, evt));
-            String actualMessage = evt.addUser(username, evt);
-            System.out.println(actualMessage);
+            try {
+                user = new Users(username, evt);
+                //theEvent.addToUsersList(new Users(username, evt));
+                String actualMessage = evt.addUser(username, evt);
+                System.out.println(actualMessage);
+            } catch(NullPointerException npe) {
+                System.out.println("Something failed... no events yet?");
+            }
         }
         printParticipants();
 
