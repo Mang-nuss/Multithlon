@@ -5,23 +5,25 @@ import common.Event;
 import common.ExcelPrinter;
 import common.Users;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MultithlonDemo {
 
     public static Scanner scanner = new Scanner(System.in);
-    public static String inputString;
-    public static int inputNr;
+    public static String inputString, discipline, result, username;
+    public static int rowNr = 0;
+    public static double[] values;
+    public static int inputNr, score;
     public static Users user;
-    public static String username;
-    public static boolean on;
+    public static boolean on, isValid;
     public static Event theEvent;
     public static Calculator calculator;
     public static MultithlonGUI gui;
 
     //-----------MAIN-----------//
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         gui = new MultithlonGUI();
         calculator = new Calculator();
@@ -65,8 +67,9 @@ public class MultithlonDemo {
 
         //System.out.print("input: " + in);
     }
+    //--------------------------//
 
-    private static void registerResult() {
+    private static void registerResult() throws IOException {
         System.out.print("Enter participant name: ");
         if(scanner.hasNext()) {
             username = scanner.next();
@@ -74,12 +77,50 @@ public class MultithlonDemo {
 
             if(nameExists(username)) {
                 System.out.println(username + " exists");
-/*                evt =
-                        discipline = disc;
-                calculator.pickDisciplineFromMap(evt.getName(), disc);
-                System.out.println("values = " + calculator.getValues());*/
+                user = getUser(username);
+                theEvent = getEvent(user.getEvent());
+                chooseDiscipline(theEvent);
+                enterResults(discipline, theEvent);
             }
             else { System.out.println(username + " is not registered."); };
+        }
+    }
+
+    private static void enterResults(String discipline, Event evt) throws IOException {
+        System.out.print("Enter result: ");
+        if(scanner.hasNext()) {
+            result = scanner.next();
+            System.out.println();
+
+            isValid = calculator.setResultInput(result);
+            if (isValid) {
+                double res = Double.valueOf(result);
+                if (evt.getName().equals("Decathlon")) {
+                    values = evt.Dc.get(discipline);
+                } else if (evt.getName().equals("Heptathlon")) {
+                    values = evt.Hc.get(discipline);
+                }
+                System.out.println("result = " + calculator.getResult());
+                score = calculator.calculateScore(evt.getName(), discipline, res, values);
+                System.out.println("score for discipline " + discipline +
+                        " result " + res + " is " + score);
+                Object[][] testData = {{"name", user.getUsername()}, {discipline, calculator.getResult()}};
+                gui.printer.add(testData, "data", rowNr);
+                rowNr++;
+                gui.printer.write();
+            }
+        }
+    }
+
+    private static void chooseDiscipline(Event e) {
+        System.out.print("For event " + e.getName() + ", enter discipline name: ");
+        if(scanner.hasNext()) {
+            discipline = scanner.next();
+            System.out.println();
+
+            System.out.println("Chosen discipline: " + discipline);
+            calculator.pickDisciplineFromMap(e.getName(), discipline);
+            System.out.println("values = " + calculator.getValues());
         }
     }
 
@@ -139,12 +180,36 @@ public class MultithlonDemo {
     }
 
     private static boolean nameExists(String name) {
-        boolean exists = false;
 
+        boolean exists = false;
         for(Event evt : gui.events) {
             exists = evt.isAlreadyRegistered(name);
         }
 
         return exists;
+    }
+
+    public static Users getUser(String name) {
+
+        Users user = null;
+        for(Event evt : gui.events) {
+            for (Users u : evt.users) {
+                if (u.getUsername().equals(name)) {
+                    user = u;
+                }
+            }
+        }
+
+        return user;
+    }
+
+    public static Event getEvent(String eventName) {
+
+        theEvent = null;
+        for(Event evt : gui.events) {
+            if(eventName.equals(evt.getName())) { theEvent = evt; }
+        }
+
+        return theEvent;
     }
 }

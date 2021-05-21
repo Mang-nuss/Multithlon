@@ -109,7 +109,7 @@ public class Calculator {
 				}
 			}
 		}
-		if (event.equals("Heptathlon")) {
+		else if (event.equals("Heptathlon")) {
 			for (Map.Entry m : Hc.entrySet()) {
 				if (m.getKey().equals(discipline)) {
 					setValues((double[]) m.getValue());
@@ -126,7 +126,9 @@ public class Calculator {
 	}
 
 	public void setEvent(String discipline) {
-		event = discipline;
+		System.out.println("Calculator prop" +
+				"erty event is set to " + discipline);
+		this.event = discipline;
 	}
 
 	public void populateConstantMaps() {

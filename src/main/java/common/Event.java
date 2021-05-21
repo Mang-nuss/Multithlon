@@ -131,16 +131,4 @@ public class Event {
         return false;
     }
 
-    public Users(String name) {
-
-        Users user = null;
-
-        for (Users u : users) {
-            if (u.getUsername().equals(name)) {
-                user = u;
-            }
-        }
-
-        return user;
-    }
 }
