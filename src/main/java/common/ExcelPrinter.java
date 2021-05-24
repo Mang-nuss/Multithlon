@@ -44,8 +44,8 @@ public class ExcelPrinter {
         }
         //columnCount++;*/
 
-        int columnCount = colNr;
-        int rowCount = 1;
+        int columnCount = 0;
+        int rowCount = colNr;
         Row row = sheet.createRow(rowCount);
 
         for (Object[] aBook : data) {
@@ -83,13 +83,13 @@ public class ExcelPrinter {
     TODO: Handle the closing of document!
     *  */
     public void write() throws IOException {
-        FileOutputStream out = new FileOutputStream("/Users/magnusjohansson/Dokument/MVT20/Testtekniker/Multithlon" + excelName + ".xlsx");
+        FileOutputStream out = new FileOutputStream("C:\\Users\\eva\\git\\Multithlon\\" + excelName + ".xlsx");
         workbook.write(out);
         //workbook.close();
     }
 
     public String getCellInfo(String excelName, int sheetNumber, int rowNumber, int colNumber) throws IOException {
-        File excelfile = new File("/Users/magnusjohansson/Dokument/MVT20/Testtekniker/Multithlon" + excelName + ".xlsx");
+        File excelfile = new File("C:\\Users\\eva\\git\\Multithlon\\" + excelName + ".xlsx");
         FileInputStream fis = new FileInputStream(excelfile);
 
         @SuppressWarnings("resource")
