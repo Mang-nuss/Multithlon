@@ -26,22 +26,38 @@ public class ExcelPrinter {
         excelName = name;
     }
 
-    public void add(Object[][] data, String sheetName, int rowNr) {
+    public void add(Object[][] data, XSSFSheet sheet, int colNr) {
 
-        XSSFSheet sheet;
-        sheet = workbook.createSheet(sheetName);
+        //Row row;
+/*        XSSFSheet sheet;
+        sheet = workbook.createSheet(sheetName);*/
 
-        int rowCount = rowNr;
+/*
+        int nr = 0;
+        String[] cols;
+        cols = new String[]{"name", "disc1", "disc2"};
+        row = sheet.createRow(nr);
+        int rowCount = 0;
+        for(String s : cols) {
+            Cell cell = row.createCell(nr++);
+            cell.setCellValue(s);
+        }
+        //columnCount++;*/
+
+        int columnCount = colNr;
+        int rowCount = 1;
+        Row row = sheet.createRow(rowCount);
 
         for (Object[] aBook : data) {
-            Row row = sheet.createRow(rowCount);
-            rowCount++;
-            int columnCount = 0;
+            //row = sheet.createRow(columnCount);
+            //columnCount++;
 
             for (Object field : aBook) {
-                System.out.println("field: " + field);
+                //System.out.println("field: " + columnCount + " - " + field);
+
+                //System.out.println("columnCount = " + columnCount);
                 Cell cell = row.createCell(columnCount);
-                columnCount++;
+                //rowCount++;
 
                 if (field instanceof String) {
                     cell.setCellValue((String) field);
@@ -53,18 +69,27 @@ public class ExcelPrinter {
                     cell.setCellValue((Double) field);
 
                 }
+
+                //rowCount++;
             }
+
+            columnCount++;
         }
+
+        //columnCount = 0;
     }
 
+    /*
+    TODO: Handle the closing of document!
+    *  */
     public void write() throws IOException {
-        FileOutputStream out = new FileOutputStream("C:\\Users\\eva\\git\\Multithlon\\" + excelName + ".xlsx");
+        FileOutputStream out = new FileOutputStream("/Users/magnusjohansson/Dokument/MVT20/Testtekniker/Multithlon" + excelName + ".xlsx");
         workbook.write(out);
-        workbook.close();
+        //workbook.close();
     }
 
     public String getCellInfo(String excelName, int sheetNumber, int rowNumber, int colNumber) throws IOException {
-        File excelfile = new File("C:\\Users\\eva\\git\\Multithlon\\" + excelName + ".xlsx");
+        File excelfile = new File("/Users/magnusjohansson/Dokument/MVT20/Testtekniker/Multithlon" + excelName + ".xlsx");
         FileInputStream fis = new FileInputStream(excelfile);
 
         @SuppressWarnings("resource")

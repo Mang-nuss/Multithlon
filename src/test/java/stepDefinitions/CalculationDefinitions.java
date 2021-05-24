@@ -7,6 +7,9 @@ import gui.MultithlonGUI;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -58,11 +61,29 @@ public class CalculationDefinitions {
 
 	@Then("I can see a correct {int}")
 	public void i_can_see_a_correct_result(int score) throws IOException {
+
 		System.out.println("in then line");
+
+		Row row;
+		XSSFSheet sheet;
+		sheet = gui.printer.workbook.createSheet("data");
+
+
+		int nr = 0;
+		String[] cols;
+		cols = new String[]{"name", "disc1", "disc2"};
+		row = sheet.createRow(nr);
+		int rowCount = 0;
+		for(String s : cols) {
+			Cell cell = row.createCell(nr++);
+			cell.setCellValue(s);
+		}
+
+
 		int expected = calculator.calculateScore(evt.getName(), discipline, result, values);
-		Object[][] testData = {{"name", user.getUsername()},{discipline,calculator.getResult(),expected}};
-		gui.printer.add(testData, "data", rowNr);
-		rowNr++;
+		Object[][] testData = {{user.getUsername()},{calculator.getResult()},{expected}};
+		gui.printer.add(testData, sheet, rowNr);
+		//rowNr++;
 		gui.printer.write();
 /*		System.out.println("\nprintout:" +
 				gui.printer.getCellInfo(gui.printer.excelName,0,0,0) + ", " +

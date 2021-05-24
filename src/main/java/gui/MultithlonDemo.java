@@ -4,6 +4,9 @@ import common.Calculator;
 import common.Event;
 import common.ExcelPrinter;
 import common.Users;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,6 +24,7 @@ public class MultithlonDemo {
     public static Event theEvent;
     public static Calculator calculator;
     public static MultithlonGUI gui;
+    public static XSSFSheet sheet;
 
     //-----------MAIN-----------//
     public static void main(String[] args) throws IOException {
@@ -28,6 +32,21 @@ public class MultithlonDemo {
         gui = new MultithlonGUI();
         calculator = new Calculator();
         on = true;
+
+        Row row;
+        //XSSFSheet sheet;
+        sheet = gui.printer.workbook.createSheet("data");
+
+        //Entering main column names in sheet
+        int nr = 0;
+        String[] cols;
+        cols = new String[]{"name", "disc1", "points"};
+        row = sheet.createRow(nr);
+        //int rowCount = 0;
+        for(String s : cols) {
+            Cell cell = row.createCell(nr++);
+            cell.setCellValue(s);
+        }
 
         while(on) {
 
@@ -109,8 +128,10 @@ public class MultithlonDemo {
                     score = calculator.calculateScore(evt.getName(), discipline, res, values);
                     System.out.println("score for discipline " + discipline +
                             " result " + res + " is " + score);
-                    Object[][] testData = {{"name", user.getUsername()}, {discipline, calculator.getResult()}};
-                    gui.printer.add(testData, "data", rowNr);
+                    //Object[][] testData = {{"name", user.getUsername()}, {discipline, calculator.getResult()}};
+                    Object[][] testData = {{user.getUsername()}, {calculator.getResult()}, {score}};
+
+                    gui.printer.add(testData, sheet, rowNr);
                     rowNr++;
                     gui.printer.write();
                 } catch(NullPointerException npe) {
