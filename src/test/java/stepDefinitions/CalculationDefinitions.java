@@ -53,10 +53,6 @@ public class CalculationDefinitions {
 			if(evt.getName().equals("Decathlon")) { values = evt.Dc.get(discipline); }
 			else if(evt.getName().equals("Heptathlon")) { values = evt.Hc.get(discipline); }
 			System.out.println("result = " + calculator.getResult());
-			Object[][] testData = {{"name", user.getUsername()},{discipline,calculator.getResult()}};
-			gui.printer.add(testData, "data", rowNr);
-			rowNr++;
-			gui.printer.write();
 		}		
 	}
 
@@ -64,6 +60,10 @@ public class CalculationDefinitions {
 	public void i_can_see_a_correct_result(int score) throws IOException {
 		System.out.println("in then line");
 		int expected = calculator.calculateScore(evt.getName(), discipline, result, values);
+		Object[][] testData = {{"name", user.getUsername()},{discipline,calculator.getResult(),expected}};
+		gui.printer.add(testData, "data", rowNr);
+		rowNr++;
+		gui.printer.write();
 /*		System.out.println("\nprintout:" +
 				gui.printer.getCellInfo(gui.printer.excelName,0,0,0) + ", " +
 				gui.printer.getCellInfo(gui.printer.excelName,0,0,1));*/
