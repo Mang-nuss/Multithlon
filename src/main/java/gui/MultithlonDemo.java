@@ -98,7 +98,7 @@ public class MultithlonDemo {
 				user = getUser(username);
 				theEvent = getEvent(user.getEvent());
 				chooseDiscipline(theEvent);
-				enterResults(discipline, theEvent);
+				enterResults(discipline, theEvent, user);
 			} else {
 				System.out.println(username + " is not registered.");
 			}
@@ -109,7 +109,7 @@ public class MultithlonDemo {
 	/*
 	 * TODO: handle outstanding results that are probably wrongly input
 	 */
-	private static void enterResults(String discipline, Event evt) throws IOException, NullPointerException {
+	private static void enterResults(String discipline, Event evt, Users user) throws IOException, NullPointerException {
 		System.out.print("Enter result: ");
 		if (scanner.hasNext()) {
 			result = scanner.nextLine();
@@ -124,17 +124,34 @@ public class MultithlonDemo {
 				} else if (evt.getName().equals("Heptathlon")) {
 					values = evt.Hc.get(discipline);
 				}
-				System.out.println("result = " + calculator.getResult());
 
 				try {
-					score = calculator.calculateScore(evt.getName(), discipline, res, values);
-					System.out.println("score for discipline " + discipline + " result " + res + " is " + score);
-					// Object[][] testData = {{"name", user.getUsername()}, {discipline,
-					// calculator.getResult()}};
-					Object[][] testData = { { user.getUsername() }, { calculator.getResult() }, { score } };
+					int nrOfDisc = -1;
+					int n = 0;
 
-					gui.printer.add(testData, sheetDeca, rowNr);
-					rowNr++;
+					score = calculator.calculateScore(evt.getName(), discipline, res, values);
+
+					//Adding result to user result array, for easier access
+					for(Object[] o : user.resultArray) {
+						nrOfDisc++;
+						if(discipline.equals(o[0])) {
+							o[1] = result;
+							o[2] = score;
+							n = nrOfDisc;
+						}
+					}
+
+					System.out.println("score for discipline " + discipline + " result " + res +
+							" is " + score + " according to calculator and " + user.resultArray[n][2] +
+							" according to user data");
+					Object[][] testData = { { user.getUsername() }, { calculator.getResult() }, { score } };
+					Object[][] data = user.resultArray;
+
+					//gui.printer.add(testData, sheetDeca, rowNr);
+					//rowNr++;
+					gui.printer.add2(user, sheetDeca, rowNr);
+					//rowNr++;
+
 					gui.printer.write();
 				} catch (NullPointerException npe) {
 					System.out.println("Are those data applicable?");

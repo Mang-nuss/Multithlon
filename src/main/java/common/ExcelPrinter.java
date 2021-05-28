@@ -79,6 +79,57 @@ public class ExcelPrinter {
         //columnCount = 0;
     }
 
+    public void add2(Users user, XSSFSheet sheet, int colNr) {
+
+        int columnCount = 0;
+        int rowCount = colNr;
+        Row row = sheet.createRow(rowCount);
+        Cell cell = row.createCell(columnCount);
+        cell.setCellValue(user.getUsername()); //Prints out the username in 1st column
+        columnCount++;
+
+        for (Object[] result : user.resultArray) {
+            //row = sheet.createRow(columnCount);
+            //columnCount++;
+            int n = 0;
+
+            for (Object field : result) {
+                //System.out.println("field: " + columnCount + " - " + field);
+
+                //System.out.println("columnCount = " + columnCount);
+                //rowCount++;
+
+                if (n != 0) {
+                    if (field instanceof String) {
+                        //System.out.println("discipline name skipped");
+                        cell = row.createCell(columnCount);
+                        cell.setCellValue((String) field);
+                    }
+                }
+
+                n++; //to skip the discipline name in outprint
+
+                if (field instanceof Integer) {
+                    cell = row.createCell(columnCount);
+                    cell.setCellValue((Integer) field);
+                    columnCount++;
+
+                } else if (field instanceof Double) {
+                    cell = row.createCell(columnCount);
+                    cell.setCellValue((Double) field);
+                    columnCount++;
+
+                }
+
+                //rowCount++;
+            }
+
+            //columnCount++;
+        }
+
+        //columnCount = 0;
+    }
+
     /*
     TODO: Handle the closing of document!
     *  */

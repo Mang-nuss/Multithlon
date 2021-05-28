@@ -38,7 +38,10 @@ public class CalculationDefinitions {
 
 		evt = gui.getEventByName(e);
 		user = new Users("Eva", evt);
-		System.out.println("You're registered in " + user.getEvent());
+		System.out.println("You're registered in " + user.getEvent() + " and compete in: ");
+		for(Object[] o : user.resultArray) {
+			System.out.println(o[0]);
+		}
 	}
 
 	@When("I choose a relevant {string}")
@@ -50,12 +53,25 @@ public class CalculationDefinitions {
 	
 	@When("I insert correct {string} input")
 	public void i_insert_correct_input(String s) throws IOException {
+		int nrOfDisc = -1;
+		int n = 0;
+
 		isValid = calculator.setResultInput(s);
 		if (isValid) {
 			result = Double.valueOf(s);
+
+			for(Object[] o : user.resultArray) {
+				nrOfDisc++;
+				if(discipline.equals(o[0])) {
+					o[1] = result;
+					n = nrOfDisc;
+				}
+			}
+
 			if(evt.getName().equals("Decathlon")) { values = evt.Dc.get(discipline); }
 			else if(evt.getName().equals("Heptathlon")) { values = evt.Hc.get(discipline); }
-			System.out.println("result = " + calculator.getResult());
+			System.out.println("result (calculator) = " + calculator.getResult() +
+					"\nresult (user data) = " + user.resultArray[n][1]);
 		}		
 	}
 
