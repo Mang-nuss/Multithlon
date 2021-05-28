@@ -41,7 +41,9 @@ public class MultithlonDemo {
 		// Entering main column names in sheet
 		int nr = 0;
 		String[] cols;
-		cols = new String[] { "Name", "100m", "Score", "Long jump", "Score", "Shot put", "Score", "High jump", "Score", "400m", "Score", "110m hurdles", "Score", "Discus throw", "Score", "Pole vault", "Score", "Javelin throw", "Score", "1500m", "Score", "Total" };
+		cols = new String[] { "Name", "100m", "Score", "Long jump", "Score", "Shot put", "Score", "High jump", "Score",
+				"400m", "Score", "110m hurdles", "Score", "Discus throw", "Score", "Pole vault", "Score",
+				"Javelin throw", "Score", "1500m", "Score", "Total" };
 		row = sheetDeca.createRow(nr);
 		// int rowCount = 0;
 		for (String s : cols) {
@@ -55,7 +57,7 @@ public class MultithlonDemo {
 					+ "2. Register participant\n" + "3. Enter result\n" + "4. Result table\n" + "5. Quit");
 
 			System.out.print("Enter nr: ");
-			
+
 			inputChoice = scanner.nextLine();
 
 			switch (inputChoice) {
@@ -117,6 +119,7 @@ public class MultithlonDemo {
 			System.out.println("In row: " + rowNr);
 
 			isValid = calculator.setResultInput(result);
+			
 			if (isValid) {
 				double res = Double.valueOf(result);
 				if (evt.getName().equals("Decathlon")) {
@@ -170,10 +173,31 @@ public class MultithlonDemo {
 			discipline = scanner.nextLine();
 			System.out.println();
 
-			System.out.println("Chosen discipline: " + discipline);
-			calculator.pickDisciplineFromMap(e.getName(), discipline);
-			System.out.println("values = " + calculator.getValues());
+			boolean discExists = isValidDiscipline(discipline);
+			if (discExists) {
+				System.out.println("Chosen discipline: " + discipline);
+				calculator.pickDisciplineFromMap(e.getName(), discipline);
+				System.out.println("values = " + calculator.getValues());
+			} else {
+				System.out.println("We cannot find " + discipline + " in " + e.getName() + ", please make sure that you've entered a correct discipline.");
+			}
+			
 		}
+	}
+
+	private static boolean isValidDiscipline(String disc) {
+		boolean discExists = false;
+		for (String d : gui.decathlonDisciplines) {
+			if (d.equals(discipline)) {
+				discExists = true;
+			}
+			for (String s : gui.heptathlonDisciplines) {
+				if (s.equals(discipline)) {
+					discExists = true;
+				}
+			}
+		}
+		return discExists;
 	}
 
 	private static void showResultTable() {
