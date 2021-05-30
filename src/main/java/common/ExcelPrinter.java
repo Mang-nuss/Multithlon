@@ -79,52 +79,65 @@ public class ExcelPrinter {
         //columnCount = 0;
     }
 
-    public void add2(Users user, XSSFSheet sheet, int colNr) {
+    public void add2(Event evt, XSSFSheet sheet, int colNr) {
 
         int columnCount = 0;
         int rowCount = colNr;
-        Row row = sheet.createRow(rowCount);
+/*        Row row = sheet.createRow(rowCount);
         Cell cell = row.createCell(columnCount);
         cell.setCellValue(user.getUsername()); //Prints out the username in 1st column
-        columnCount++;
+        columnCount++;*/
 
-        for (Object[] result : user.resultArray) {
-            //row = sheet.createRow(columnCount);
-            //columnCount++;
-            int n = 0;
+        for (Users user : evt.users) {
 
-            for (Object field : result) {
-                //System.out.println("field: " + columnCount + " - " + field);
+            Row row = sheet.createRow(rowCount);
+            Cell cell = row.createCell(columnCount);
+            cell.setCellValue(user.getUsername()); //Prints out the username in 1st column
+            columnCount++;
 
-                //System.out.println("columnCount = " + columnCount);
-                //rowCount++;
+            for (Object[] result : user.resultArray) {
+                //row = sheet.createRow(columnCount);
+                //columnCount++;
+                int n = 0;
 
-                if (n != 0) {
-                    if (field instanceof String) {
-                        //System.out.println("discipline name skipped");
-                        cell = row.createCell(columnCount);
-                        cell.setCellValue((String) field);
+                for (Object field : result) {
+                    //System.out.println("field: " + columnCount + " - " + field);
+
+                    //System.out.println("columnCount = " + columnCount);
+                    //rowCount++;
+
+                    if (n != 0) {
+                        if (field instanceof String) {
+                            //System.out.println("discipline name skipped");
+                            cell = row.createCell(columnCount);
+                            cell.setCellValue((String) field);
+                            columnCount++;
+                        }
                     }
+
+                    n++; //to skip the discipline name in outprint
+
+                    if (field instanceof Integer) {
+                        cell = row.createCell(columnCount);
+                        cell.setCellValue((Integer) field);
+                        columnCount++;
+
+                    } else if (field instanceof Double) {
+                        cell = row.createCell(columnCount);
+                        cell.setCellValue((Double) field);
+                        columnCount++;
+
+                    }
+
+                    //rowCount++;
                 }
 
-                n++; //to skip the discipline name in outprint
-
-                if (field instanceof Integer) {
-                    cell = row.createCell(columnCount);
-                    cell.setCellValue((Integer) field);
-                    columnCount++;
-
-                } else if (field instanceof Double) {
-                    cell = row.createCell(columnCount);
-                    cell.setCellValue((Double) field);
-                    columnCount++;
-
-                }
-
-                //rowCount++;
+                //columnCount++;
+                //rowCount++; //Next user, next row
             }
 
-            //columnCount++;
+            rowCount++; //Next user, next row
+            columnCount = 0;
         }
 
         //columnCount = 0;

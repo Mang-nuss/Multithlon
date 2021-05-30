@@ -152,7 +152,7 @@ public class MultithlonDemo {
 
 					//gui.printer.add(testData, sheetDeca, rowNr);
 					//rowNr++;
-					gui.printer.add2(user, sheetDeca, rowNr);
+					gui.printer.add2(evt, sheetDeca, rowNr);
 					//rowNr++;
 
 					gui.printer.write();
