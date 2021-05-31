@@ -58,21 +58,9 @@ public class MultithlonDemo {
 		//------------------------//
 
 		try {
-			/*// XSSFSheet sheet;
-			sheetDeca = gui.printer.workbook.createSheet("Decathlon");
-
-			// Entering main column names in sheet
-			int nr = 0;
-			String[] cols;*/
 			String[] decathlonColumns = new String[]{"Name", "100m", "Score", "Long jump", "Score", "Shot put", "Score", "High jump", "Score",
 					"400m", "Score", "110m hurdles", "Score", "Discus throw", "Score", "Pole vault", "Score",
 					"Javelin throw", "Score", "1500m", "Score", "Total"};
-/*			row = sheetDeca.createRow(nr);
-			// int rowCount = 0;
-			for (String s : cols) {
-				Cell cell = row.createCell(nr++);
-				cell.setCellValue(s);
-			}*/
 			String[] heptathlonColumns = new String[]{"Name", "100m hurdles", "Score", "High jump", "Score", "Shot put", "Score", "200m", "Score",
 					"Long jump", "Score", "Javelin throw", "Score", "800m", "Score", "Total"};
 
@@ -97,15 +85,12 @@ public class MultithlonDemo {
 				chooseEvent();
 				break;
 			case "2":
-				// System.out.println("Register");
 				registerParticipant(theEvent);
 				break;
 			case "3":
-				// System.out.println("Enter results for participant");
 				registerResult();
 				break;
 			case "4":
-				// System.out.println("Result table");
 				showResultTable();
 				break;
 			case "5":
@@ -233,11 +218,11 @@ public class MultithlonDemo {
 	private static boolean isValidDiscipline(String disc) {
 		boolean discExists = false;
 		for (String d : gui.decathlonDisciplines) {
-			if (d.equals(discipline)) {
+			if (d.equals(disc)) {
 				discExists = true;
 			}
 			for (String s : gui.heptathlonDisciplines) {
-				if (s.equals(discipline)) {
+				if (s.equals(disc)) {
 					discExists = true;
 				}
 			}
@@ -246,6 +231,15 @@ public class MultithlonDemo {
 	}
 
 	private static void showResultTable() {
+		System.out.println("--- CURRENT STANDING ---");
+		for(Event e : gui.events) {
+			System.out.println(e.eventName);
+			for(Users user : e.users) {
+				System.out.println(user.getUsername() + " : " + user.score);
+			}
+			System.out.println();
+		}
+		System.out.println("------------------------");
 	}
 
 	private static void registerParticipant(Event evt) throws NullPointerException {
@@ -312,6 +306,7 @@ public class MultithlonDemo {
 
 		boolean exists = false;
 		for (Event evt : gui.events) {
+			System.out.println(evt.eventName);
 			exists = evt.isAlreadyRegistered(name);
 		}
 

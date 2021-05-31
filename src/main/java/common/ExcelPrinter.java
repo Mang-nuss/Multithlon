@@ -31,10 +31,6 @@ public class ExcelPrinter {
 
         int columnCount = 0;
         int rowCount = colNr;
-/*        Row row = sheet.createRow(rowCount);
-        Cell cell = row.createCell(columnCount);
-        cell.setCellValue(user.getUsername()); //Prints out the username in 1st column
-        columnCount++;*/
 
         for (Users user : evt.users) {
 

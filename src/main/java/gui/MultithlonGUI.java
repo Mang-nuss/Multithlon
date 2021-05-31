@@ -35,9 +35,9 @@ public class MultithlonGUI {
             "Shot put",
             "110 hurdles",
             "Javelin throw",
-            "400 m",
-            "1500 m",
-            "100 m",
+            "400m",
+            "1500m",
+            "100m",
             "Pole vault",
             "Discus throw"};
     public static String[] heptathlonDisciplines =
@@ -46,8 +46,8 @@ public class MultithlonGUI {
             "Shot put",
             "100 hurdles",
             "Javelin throw",
-            "800 m",
-            "200 m"};
+            "800m",
+            "200m"};
 
     public ArrayList<common.Event> events;
     public ExcelPrinter printer;
