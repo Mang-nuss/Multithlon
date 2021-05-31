@@ -20,66 +20,14 @@ public class ExcelPrinter {
 
     public XSSFWorkbook workbook;
     public String excelName;
+    public Cell cell;
 
     public ExcelPrinter(String name) {
         workbook = new XSSFWorkbook();
         excelName = name;
     }
 
-    public void add(Object[][] data, XSSFSheet sheet, int colNr) {
-
-        //Row row;
-/*        XSSFSheet sheet;
-        sheet = workbook.createSheet(sheetName);*/
-
-/*
-        int nr = 0;
-        String[] cols;
-        cols = new String[]{"name", "disc1", "disc2"};
-        row = sheet.createRow(nr);
-        int rowCount = 0;
-        for(String s : cols) {
-            Cell cell = row.createCell(nr++);
-            cell.setCellValue(s);
-        }
-        //columnCount++;*/
-
-        int columnCount = 0;
-        int rowCount = colNr;
-        Row row = sheet.createRow(rowCount);
-
-        for (Object[] aBook : data) {
-            //row = sheet.createRow(columnCount);
-            //columnCount++;
-
-            for (Object field : aBook) {
-                //System.out.println("field: " + columnCount + " - " + field);
-
-                //System.out.println("columnCount = " + columnCount);
-                Cell cell = row.createCell(columnCount);
-                //rowCount++;
-
-                if (field instanceof String) {
-                    cell.setCellValue((String) field);
-
-                } else if (field instanceof Integer) {
-                    cell.setCellValue((Integer) field);
-
-                } else if (field instanceof Double) {
-                    cell.setCellValue((Double) field);
-
-                }
-
-                //rowCount++;
-            }
-
-            columnCount++;
-        }
-
-        //columnCount = 0;
-    }
-
-    public void add2(Event evt, XSSFSheet sheet, int colNr) {
+    public void add(Event evt, XSSFSheet sheet, int colNr) {
 
         int columnCount = 0;
         int rowCount = colNr;
@@ -91,20 +39,14 @@ public class ExcelPrinter {
         for (Users user : evt.users) {
 
             Row row = sheet.createRow(rowCount);
-            Cell cell = row.createCell(columnCount);
+            cell = row.createCell(columnCount);
             cell.setCellValue(user.getUsername()); //Prints out the username in 1st column
             columnCount++;
 
             for (Object[] result : user.resultArray) {
-                //row = sheet.createRow(columnCount);
-                //columnCount++;
                 int n = 0;
 
                 for (Object field : result) {
-                    //System.out.println("field: " + columnCount + " - " + field);
-
-                    //System.out.println("columnCount = " + columnCount);
-                    //rowCount++;
 
                     if (n != 0) {
                         if (field instanceof String) {
@@ -128,13 +70,11 @@ public class ExcelPrinter {
                         columnCount++;
 
                     }
-
-                    //rowCount++;
                 }
-
-                //columnCount++;
-                //rowCount++; //Next user, next row
             }
+
+            cell = row.createCell(columnCount);
+            cell.setCellValue(user.score); //Adding the total score to last column.
 
             rowCount++; //Next user, next row
             columnCount = 0;

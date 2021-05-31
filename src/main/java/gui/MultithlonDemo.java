@@ -7,7 +7,10 @@ import common.Users;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -24,7 +27,8 @@ public class MultithlonDemo {
 	public static Event theEvent;
 	public static Calculator calculator;
 	public static MultithlonGUI gui;
-	public static XSSFSheet sheetDeca;
+	public static XSSFSheet sheetDeca, sheetHepta;
+	public static FileInputStream file;
 
 	// -----------MAIN-----------//
 	public static void main(String[] args) throws IOException {
@@ -34,21 +38,49 @@ public class MultithlonDemo {
 		on = true;
 		String inputChoice;
 
-		Row row;
-		// XSSFSheet sheet;
-		sheetDeca = gui.printer.workbook.createSheet("Decathlon");
+		//-- READING EXCEL FILE --//
+		/*
+		From https://stackoverflow.com/questions/1516144/how-to-read-and-write-excel-file
+		and Zeshan's loading methods on the Console branch.
+		 */
 
-		// Entering main column names in sheet
-		int nr = 0;
-		String[] cols;
-		cols = new String[] { "Name", "100m", "Score", "Long jump", "Score", "Shot put", "Score", "High jump", "Score",
-				"400m", "Score", "110m hurdles", "Score", "Discus throw", "Score", "Pole vault", "Score",
-				"Javelin throw", "Score", "1500m", "Score", "Total" };
-		row = sheetDeca.createRow(nr);
-		// int rowCount = 0;
-		for (String s : cols) {
-			Cell cell = row.createCell(nr++);
-			cell.setCellValue(s);
+/*		try {
+			file = new FileInputStream("C:\\Users\\eva\\git\\Multithlon\\" + gui.printer.excelName + ".xlsx");
+			gui.printer.workbook = new XSSFWorkbook(file);
+			sheetDeca = gui.printer.workbook.getSheet("sheetDeca"); //Trying out...
+			sheetHepta = gui.printer.workbook.getSheet("sheetHepta"); //Trying out...
+			System.out.println("Sheet loaded from file.");
+
+		} catch (IOException ioe) {
+			System.out.println("Excel loading failure.");
+		}*/
+
+		//------------------------//
+
+		try {
+			/*// XSSFSheet sheet;
+			sheetDeca = gui.printer.workbook.createSheet("Decathlon");
+
+			// Entering main column names in sheet
+			int nr = 0;
+			String[] cols;*/
+			String[] decathlonColumns = new String[]{"Name", "100m", "Score", "Long jump", "Score", "Shot put", "Score", "High jump", "Score",
+					"400m", "Score", "110m hurdles", "Score", "Discus throw", "Score", "Pole vault", "Score",
+					"Javelin throw", "Score", "1500m", "Score", "Total"};
+/*			row = sheetDeca.createRow(nr);
+			// int rowCount = 0;
+			for (String s : cols) {
+				Cell cell = row.createCell(nr++);
+				cell.setCellValue(s);
+			}*/
+			String[] heptathlonColumns = new String[]{"Name", "100m hurdles", "Score", "High jump", "Score", "Shot put", "Score", "200m", "Score",
+					"Long jump", "Score", "Javelin throw", "Score", "800m", "Score", "Total"};
+
+			sheetDeca = fillInColumns("Decathlon", decathlonColumns);
+			sheetHepta = fillInColumns("Heptathlon", heptathlonColumns);
+
+		} catch (IllegalArgumentException iae) {
+			System.out.println("Exception occurred when initiating a new sheet: " + iae.getMessage());
 		}
 
 		while (on) {
@@ -88,6 +120,21 @@ public class MultithlonDemo {
 		// System.out.print("input: " + in);
 	}
 	// --------------------------//
+
+	private static XSSFSheet fillInColumns(String title, String[] columns) {
+
+		XSSFSheet sheet = gui.printer.workbook.createSheet(title);
+		Row row;
+
+		int nr = 0;
+		row = sheet.createRow(nr);
+		for (String s : columns) {
+			Cell cell = row.createCell(nr++);
+			cell.setCellValue(s);
+		}
+
+		return sheet;
+	}
 
 	private static void registerResult() throws IOException {
 		System.out.print("Enter participant name: ");
@@ -140,6 +187,8 @@ public class MultithlonDemo {
 						if(discipline.equals(o[0])) {
 							o[1] = result;
 							o[2] = score;
+							user.score += score;
+							System.out.println(user.getUsername() + " has " + user.score + " points.");
 							n = nrOfDisc;
 						}
 					}
@@ -147,12 +196,8 @@ public class MultithlonDemo {
 					System.out.println("score for discipline " + discipline + " result " + res +
 							" is " + score + " according to calculator and " + user.resultArray[n][2] +
 							" according to user data");
-					Object[][] testData = { { user.getUsername() }, { calculator.getResult() }, { score } };
-					Object[][] data = user.resultArray;
 
-					//gui.printer.add(testData, sheetDeca, rowNr);
-					//rowNr++;
-					gui.printer.add2(evt, sheetDeca, rowNr);
+					gui.printer.add(evt, sheetDeca, rowNr);
 					//rowNr++;
 
 					gui.printer.write();

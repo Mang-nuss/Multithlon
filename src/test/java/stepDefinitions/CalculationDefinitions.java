@@ -98,7 +98,7 @@ public class CalculationDefinitions {
 
 		int expected = calculator.calculateScore(evt.getName(), discipline, result, values);
 		Object[][] testData = {{user.getUsername()},{calculator.getResult()},{expected}};
-		gui.printer.add(testData, sheet, rowNr);
+		gui.printer.add(evt, sheet, rowNr);
 		//rowNr++;
 		gui.printer.write();
 /*		System.out.println("\nprintout:" +
